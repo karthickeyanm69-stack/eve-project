@@ -1,0 +1,6 @@
+{
+  "name": "EVE x UNAI AI Coding Ecosystem",
+  "description": "Next-generation gamified coding education platform combining Duolingo-style learning map, Mimo coding challenges, Replit-style interactive IDE playground, and professional UNAI tech dark cosmic theme.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
