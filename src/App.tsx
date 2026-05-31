@@ -45,6 +45,9 @@ export default function App() {
   const [completedNodes, setCompletedNodes] = useState<string[]>(["fe_html"]);
   const [completedReadings, setCompletedReadings] = useState<string[]>([]);
   const [completedStories, setCompletedStories] = useState<string[]>([]);
+  const [syncedLanguages, setSyncedLanguages] = useState<string[]>(["JS", "PY", "HTML", "CSS"]);
+  const [activeInterest, setActiveInterest] = useState<string>("Web Development");
+  const [showLangConfig, setShowLangConfig] = useState<boolean>(false);
 
   // Multi-filing playground state
   const playgroundTemplates: SandboxProject[] = [
@@ -244,15 +247,58 @@ Skills: HTML, CSS, JavaScript, Basic Git.`);
     setLeaderboard(prev => prev.map(item => item.isCurrentUser ? { ...item, name: profileData.name + " (YOU)" } : item));
   };
 
-  const handleNodeComplete = (xpGained: number) => {
+  // Sync activeInterest with profile selection
+  useEffect(() => {
+    if (profile?.interests && profile.interests.length > 0) {
+      setActiveInterest(profile.interests[0]);
+    }
+  }, [profile]);
+
+  const handleToggleInterest = (interest: string) => {
+    if (!profile) return;
+    const isSelected = profile.interests.includes(interest);
+    
+    // Min 1 constraint
+    if (isSelected && profile.interests.length <= 1) {
+      return;
+    }
+    
+    let updated;
+    if (isSelected) {
+      updated = profile.interests.filter(i => i !== interest);
+    } else {
+      updated = [...profile.interests, interest];
+    }
+    
+    setProfile({
+      ...profile,
+      interests: updated
+    });
+    
+    // Sync active interest if the current one was removed
+    if (isSelected && activeInterest === interest) {
+      setActiveInterest(updated[0] || "");
+    }
+  };
+
+  const handleNodeComplete = (xpGained: number, nodeId?: string) => {
     setXp(prev => prev + xpGained);
     setStreak(prev => prev + 1);
-    // Add completed node id simulation
-    const currentActiveNodes = ["fe_html", "fe_css", "fe_js", "fe_react", "fe_next", "be_node", "be_express", "be_db", "py_basics", "py_oop", "ai_math", "ai_llm", "ai_dev", "sec_web"];
-    const finishedCount = completedNodes.length;
-    if (finishedCount < currentActiveNodes.length) {
-      const nextNodeToComplete = currentActiveNodes[finishedCount];
-      setCompletedNodes(prev => [...prev, nextNodeToComplete]);
+    
+    if (nodeId) {
+      const qId = `${activeInterest.toLowerCase()}_${nodeId}`;
+      setCompletedNodes(prev => {
+        if (prev.includes(qId)) return prev;
+        return [...prev, qId];
+      });
+    } else {
+      // Add completed node id simulation fallback
+      const currentActiveNodes = ["fe_html", "fe_css", "fe_js", "fe_react", "fe_next", "be_node", "be_express", "be_db", "py_basics", "py_oop", "ai_math", "ai_llm", "ai_dev", "sec_web"];
+      const finishedCount = completedNodes.length;
+      if (finishedCount < currentActiveNodes.length) {
+        const nextNodeToComplete = currentActiveNodes[finishedCount];
+        setCompletedNodes(prev => [...prev, nextNodeToComplete]);
+      }
     }
   };
 
@@ -260,19 +306,25 @@ Skills: HTML, CSS, JavaScript, Basic Git.`);
     setXp(prev => prev + xpGained);
     setStreak(prev => prev + 1);
     
+    const qId = `${activeInterest.toLowerCase()}_${nodeId}`;
+    setCompletedNodes(prev => {
+      if (prev.includes(qId)) return prev;
+      return [...prev, qId];
+    });
+
     if (mode === "reading") {
       setCompletedReadings(prev => {
-        if (prev.includes(nodeId)) return prev;
-        return [...prev, nodeId];
+        if (prev.includes(qId)) return prev;
+        return [...prev, qId];
       });
       setCompletedStories(prev => {
-        if (prev.includes(nodeId)) return prev;
-        return [...prev, nodeId];
+        if (prev.includes(qId)) return prev;
+        return [...prev, qId];
       });
     } else if (mode === "story") {
       setCompletedStories(prev => {
-        if (prev.includes(nodeId)) return prev;
-        return [...prev, nodeId];
+        if (prev.includes(qId)) return prev;
+        return [...prev, qId];
       });
     }
   };
@@ -518,16 +570,16 @@ Skills: HTML, CSS, JavaScript, Basic Git.`);
   }
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-[#050505] text-slate-100 font-sans overflow-hidden select-none">
+    <div className="flex flex-col h-screen w-screen bg-white text-slate-800 font-sans overflow-hidden select-none">
       
       {/* 1. Header Navigation System matching theme strictly */}
-      <header className="h-16 flex items-center justify-between px-6 bg-[#0a0a0a] border-b border-white/10 z-10 shrink-0">
+      <header className="h-16 flex items-center justify-between px-6 bg-white border-b border-slate-200 z-10 shrink-0">
         <div className="flex items-center space-x-3">
-          <div className="w-9 h-9 bg-gradient-to-br from-[#00A3FF] to-[#00F0FF] rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(0,163,255,0.4)]">
+          <div className="w-9 h-9 bg-gradient-to-br from-[#00A3FF] to-[#00F0FF] rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(0,163,255,0.2)]">
             <span className="text-black font-black text-xs tracking-tighter">E×U</span>
           </div>
           <div>
-            <h1 className="text-lg font-bold tracking-tighter uppercase font-display flex items-center gap-1.5">
+            <h1 className="text-lg font-bold tracking-tighter uppercase font-display flex items-center gap-1.5 text-slate-800">
               EVE <span className="text-[#00A3FF] font-light">×</span> UNAI
             </h1>
             <p className="text-[9px] text-[#00A3FF] font-mono uppercase tracking-widest leading-none">ECOSYSTEM CONSOLE</p>
@@ -536,29 +588,29 @@ Skills: HTML, CSS, JavaScript, Basic Git.`);
         
         {/* Dynamic header stats */}
         <div className="flex items-center space-x-6 text-xs font-mono font-medium tracking-wide">
-          <div className="flex items-center space-x-1.5 text-orange-400 group cursor-pointer" title="Day Streaks status">
+          <div className="flex items-center space-x-1.5 text-orange-600 group cursor-pointer" title="Day Streaks status">
             <Flame className="w-4 h-4 text-orange-500 fill-orange-500 group-hover:scale-115 transition-transform" />
             <span className="uppercase">{streak} DAY STREAK</span>
           </div>
 
-          <div className="flex items-center space-x-1.5 text-[#00F0FF] group cursor-pointer" title="XP accumulation points">
-            <Trophy className="w-4 h-4 text-[#00F0FF] group-hover:rotate-12 transition-transform" />
+          <div className="flex items-center space-x-1.5 text-[#00A3FF] group cursor-pointer" title="XP accumulation points">
+            <Trophy className="w-4 h-4 text-[#00A3FF] group-hover:rotate-12 transition-transform" />
             <span className="font-bold">{xp.toLocaleString()} XP</span>
           </div>
 
-          <div className="h-6 w-px bg-white/10 hidden sm:block"></div>
+          <div className="h-6 w-px bg-slate-200 hidden sm:block"></div>
 
           {/* Unified VIDYON SSO User profile sync component */}
           <div className="flex items-center space-x-2">
-            <div className="hidden sm:flex items-center space-x-2.5 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full hover:bg-white/10 transition-colors shadow-sm">
+            <div className="hidden sm:flex items-center space-x-2.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full hover:bg-slate-100 transition-colors shadow-sm">
               <img 
                 src={profile.avatar} 
                 alt={profile.name}
                 className="w-5 h-5 rounded-full border border-[#00A3FF]/50"
               />
               <div className="text-left leading-none">
-                <span className="text-[10px] text-slate-100 block font-sans truncate max-w-[90px]">{profile.name}</span>
-                <span className="text-[8px] text-slate-500 block font-mono">ID: {profile.id}</span>
+                <span className="text-[10px] text-slate-800 block font-sans truncate max-w-[90px]">{profile.name}</span>
+                <span className="text-[8px] text-slate-400 block font-mono">ID: {profile.id}</span>
               </div>
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" title="VIDYON SSO Active" />
             </div>
@@ -567,7 +619,7 @@ Skills: HTML, CSS, JavaScript, Basic Git.`);
             <button
               id="header_logout_button"
               onClick={() => setProfile(null)}
-              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full border border-red-500/20 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 transition-all text-[9.5px] font-mono cursor-pointer uppercase font-bold shadow-sm hover:border-red-500/40"
+              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700 transition-all text-[9.5px] font-mono cursor-pointer uppercase font-bold shadow-sm"
               title="Log out of session"
             >
               <LogOut className="w-3 h-3" />
@@ -581,7 +633,7 @@ Skills: HTML, CSS, JavaScript, Basic Git.`);
       <div className="flex flex-1 overflow-hidden">
         
         {/* Left Side Navigation icons with active outlines */}
-        <nav className="w-16 sm:w-20 bg-[#070707] border-r border-white/10 flex flex-col items-center py-6 justify-between shrink-0">
+        <nav className="w-16 sm:w-20 bg-slate-50 border-r border-slate-200 flex flex-col items-center py-6 justify-between shrink-0">
           <div className="flex flex-col items-center space-y-4 w-full px-2">
             {[
               { id: "roadmap", label: "ROADMAP", icon: Globe },
@@ -601,8 +653,8 @@ Skills: HTML, CSS, JavaScript, Basic Git.`);
                   title={tab.label}
                   className={`w-12 h-12 rounded-xl flex flex-col items-center justify-center transition-all cursor-pointer relative group ${
                     isSelected
-                      ? "text-[#00A3FF] bg-blue-500/10 border border-blue-500/25 shadow-[0_0_12px_rgba(0,163,255,0.15)]"
-                      : "text-slate-500 hover:text-slate-200 border border-transparent"
+                      ? "text-[#00A3FF] bg-[#00A3FF]/10 border border-[#00A3FF]/20 shadow-sm"
+                      : "text-slate-400 hover:text-slate-700 border border-transparent"
                   }`}
                 >
                   <TabIcon className="w-5 h-5" />
@@ -621,15 +673,15 @@ Skills: HTML, CSS, JavaScript, Basic Git.`);
 
           {/* Bottom telemetry indicators */}
           <div className="flex flex-col items-center space-y-3">
-            <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center" title="Software Engine Version">
-              <span className="text-[8px] font-mono text-slate-500 font-bold uppercase">v2.1</span>
+            <div className="w-7 h-7 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center" title="Software Engine Version">
+              <span className="text-[8px] font-mono text-slate-400 font-bold uppercase">v2.1</span>
             </div>
           </div>
         </nav>
 
         {/* Central Component Panel */}
         <div className="flex-1 flex flex-col overflow-hidden relative">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(0,163,255,0.06),transparent)] pointer-events-none"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(0,163,255,0.03),transparent)] pointer-events-none"></div>
 
           {/* App Views wrapper */}
           <main className="flex-1 overflow-y-auto p-4 sm:p-6 z-10 flex flex-col">
@@ -638,38 +690,127 @@ Skills: HTML, CSS, JavaScript, Basic Git.`);
             {activeView === "roadmap" && (
               <div className="space-y-6 flex-1 flex flex-col justify-between">
                 <div>
-                  <div className="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/10 mb-4">
+                  <div className="flex justify-between items-center bg-white p-4 rounded-2xl border border-slate-200 mb-4 shadow-sm text-slate-800">
                     <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 rounded-full bg-[#00A3FF]/10 border border-[#00A3FF]/30 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-full bg-[#00A3FF]/10 border border-[#00A3FF]/20 flex items-center justify-center">
                         <Globe className="w-4 h-4 text-[#00A3FF]" />
                       </div>
                       <div>
-                        <h3 className="text-xs font-mono text-slate-400 uppercase tracking-wider">Sync Roadmap Target</h3>
-                        <p className="text-sm font-sans font-medium text-slate-100">Duolingo Learning Compilers</p>
+                        <h3 className="text-xs font-mono text-slate-500 uppercase tracking-wider">Sync Roadmap Target</h3>
+                        <p className="text-sm font-sans font-medium text-slate-800">Duolingo Learning Compilers</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="text-[10px] font-mono px-2 py-1 bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/20 uppercase">
+                      <span className="text-[10px] font-mono px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200 uppercase font-semibold">
                         Progress synced
                       </span>
                     </div>
                   </div>
-
-                  {profile.interests && profile.interests.length > 0 && (
-                    <div className="bg-gradient-to-r from-blue-950/10 to-transparent p-4 rounded-2xl border border-[#00A3FF]/10 mb-4 text-left">
-                      <h4 className="text-[10px] font-mono text-[#00A3FF] uppercase tracking-widest mb-2 flex items-center gap-1.5">
-                        <Sparkles className="w-3.5 h-3.5 animate-pulse text-[#00A3FF]" /> Synchronized Orbit Interests
-                      </h4>
-                      <div className="flex flex-wrap gap-1.5">
-                        {profile.interests.map((interest) => (
-                          <span 
-                            key={interest} 
-                            className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] text-slate-200 font-mono flex items-center gap-1 hover:border-[#00A3FF]/30 transition-colors"
+                    {profile.interests && profile.interests.length > 0 && (
+                    <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm mb-4 text-left">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 relative">
+                        <h4 className="text-[10px] font-mono text-slate-800 uppercase tracking-widest flex items-center gap-1.5">
+                          <Sparkles className="w-3.5 h-3.5 text-[#00A3FF]" /> Synchronized Orbit Interests
+                        </h4>
+                        
+                        {/* Customized Coding Languages Dropdown Config */}
+                        <div className="relative">
+                          <button
+                            onClick={() => setShowLangConfig(prev => !prev)}
+                            className="px-2.5 py-1 bg-slate-50 border border-slate-200 hover:border-slate-300 text-slate-700 hover:text-slate-900 rounded-lg text-[9px] font-mono flex items-center gap-1.5 cursor-pointer transition-all active:scale-95 shadow-sm"
+                            title="Configure synced compiler languages"
                           >
-                            <span className="w-1 h-1 rounded-full bg-[#00A3FF]" />
-                            {interest}
-                          </span>
-                        ))}
+                            <Sliders className="w-3 h-3 text-[#00A3FF]" />
+                            Sync Settings
+                          </button>
+                          
+                          <AnimatePresence>
+                            {showLangConfig && (
+                              <motion.div
+                                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                className="absolute right-0 top-full mt-2 w-[320px] sm:w-[460px] bg-white border border-slate-200 rounded-2xl p-4 z-50 shadow-[0_10px_35px_rgba(0,0,0,0.12)] space-y-3 text-left"
+                              >
+                                <div className="border-b border-slate-100 pb-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+                                  <div className="flex flex-col">
+                                    <span className="text-[10px] font-bold font-mono uppercase tracking-wider text-slate-800 flex items-center gap-1">
+                                      <span className="text-[#00A3FF] font-black">&lt;/&gt;</span> PROGRAMMING & AI INTERESTS
+                                    </span>
+                                    <span className="text-[8px] text-slate-400 font-sans mt-0.5">Select topics you wish to study (* Min 1)</span>
+                                  </div>
+                                  <button 
+                                    onClick={() => setShowLangConfig(false)}
+                                    className="text-slate-400 hover:text-slate-650 cursor-pointer font-bold text-xs p-1 hover:bg-slate-100 rounded-md transition-all self-end sm:self-auto"
+                                    title="Close panel"
+                                  >
+                                    ✕
+                                  </button>
+                                </div>
+                                
+                                <div className="grid grid-cols-2 gap-2 pt-1">
+                                  {[
+                                    "Python",
+                                    "Java",
+                                    "JavaScript",
+                                    "C",
+                                    "C++",
+                                    "AI & Machine Learning",
+                                    "Data Science",
+                                    "Cyber Security"
+                                  ].map((topic) => {
+                                    const interests = profile?.interests || [];
+                                    const isSelected = interests.includes(topic);
+                                    return (
+                                      <div 
+                                        key={topic}
+                                        onClick={() => handleToggleInterest(topic)}
+                                        className={`p-2.5 rounded-xl border flex items-center justify-between cursor-pointer transition-all duration-200 active:scale-[0.98] ${
+                                          isSelected 
+                                            ? "bg-[#00A3FF]/5 border-[#00A3FF] text-[#00A3FF] font-bold shadow-[0_0_10px_rgba(0,163,255,0.06)]" 
+                                            : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-350"
+                                        }`}
+                                      >
+                                        <span className="text-[11px] font-sans truncate pr-1">{topic}</span>
+                                        {isSelected ? (
+                                          <div className="w-4 h-4 bg-[#00A3FF] text-white flex items-center justify-center rounded-full shrink-0">
+                                            <svg className="w-2.5 h-2.5 stroke-current" fill="none" viewBox="0 0 24 24" strokeWidth="4">
+                                              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                            </svg>
+                                          </div>
+                                        ) : (
+                                          <div className="w-4 h-4 border border-slate-300 rounded-full shrink-0 bg-white" />
+                                        )}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      </div>
+
+                      {/* Interactive Interest Tabs */}
+                      <div className="flex flex-wrap gap-2.5 pt-1.5">
+                        {(profile.interests || []).map((interest) => {
+                          const isActive = activeInterest === interest;
+                          return (
+                            <button 
+                              key={interest} 
+                              onClick={() => setActiveInterest(interest)}
+                              className={`px-4 py-1.5 rounded-full text-[11px] font-sans flex items-center gap-2 border transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98] ${
+                                isActive 
+                                  ? "bg-slate-950 border-slate-950 text-white font-bold shadow-sm" 
+                                  : "bg-slate-50 border-slate-200 text-slate-500 hover:bg-slate-100 hover:text-slate-800"
+                              }`}
+                              title={`Switch roadmap focus to ${interest}`}
+                            >
+                              <span className={`w-1.5 h-1.5 rounded-full transition-all ${isActive ? "bg-[#00A3FF]" : "bg-slate-400"}`} />
+                              {interest}
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                   )}
@@ -684,32 +825,32 @@ Skills: HTML, CSS, JavaScript, Basic Git.`);
                     level={level}
                     streak={streak}
                     profileName={profile?.name}
-                    activeInterest={profile?.interests?.[0] || "Web Development"}
+                    activeInterest={activeInterest}
                   />
                 </div>
 
                 {/* Interactive Dynamic Mission bar matching layout */}
-                <div className="mt-8 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-5 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="mt-8 bg-white rounded-2xl border border-slate-200 p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
                   <div className="text-left w-full md:w-auto">
                     <span className="text-[9px] text-[#00A3FF] font-mono font-bold uppercase tracking-wider">Active Duolingo Streak Missions</span>
-                    <h4 className="text-sm font-medium mt-1">Resolve tasks to increment score metrics</h4>
+                    <h4 className="text-sm font-medium mt-1 text-slate-800">Resolve tasks to increment score metrics</h4>
                     <div className="space-y-2 mt-3">
                       {dailyMissions.map((mis) => (
                         <div key={mis.id} className="flex items-center space-x-2 text-xs">
-                          <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${mis.completed ? "bg-emerald-500 border-emerald-500 text-black font-bold text-[8px]" : "border-slate-700"}`}>
+                          <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${mis.completed ? "bg-emerald-500 border-emerald-500 text-white font-bold text-[8px]" : "border-slate-350"}`}>
                             {mis.completed && "✓"}
                           </div>
-                          <span className={mis.completed ? "text-slate-500 line-through" : "text-slate-300"}>
+                          <span className={mis.completed ? "text-slate-400 line-through font-medium" : "text-slate-600 font-medium"}>
                             {mis.description} (+{mis.rewardXp} XP)
                           </span>
                         </div>
                       ))}
                     </div>
                   </div>
-                  <div className="h-px w-full md:h-12 md:w-px bg-white/10"></div>
+                  <div className="h-px w-full md:h-12 md:w-px bg-slate-200"></div>
                   <button 
                     onClick={() => setActiveView("playground")}
-                    className="w-full md:w-auto bg-[#00A3FF] text-black font-black text-xs px-6 py-3.5 rounded-xl uppercase tracking-tighter hover:bg-[#00F0FF] transition-all shrink-0 active:scale-95 shadow-[0_0_20px_rgba(0,163,255,0.3)] flex items-center justify-center gap-2"
+                    className="w-full md:w-auto bg-[#00A3FF] text-white font-bold text-xs px-6 py-3.5 rounded-xl uppercase tracking-tighter hover:bg-[#00F0FF] hover:text-black transition-all shrink-0 active:scale-95 shadow-sm flex items-center justify-center gap-2 cursor-pointer border-none"
                   >
                     <Terminal className="w-4 h-4" />
                     Launch Interactive Playground

@@ -459,19 +459,21 @@ export default function Roadmap({
 
   // Determine actual visual status of a node
   const getNodeStatus = (node: RoadmapNode) => {
+    const qId = `${activeCourse.toLowerCase()}_${node.id}`;
     if (node.type === "reading") {
-      if (completedStories.includes(node.id)) return "completed";
+      if (completedStories.includes(qId)) return "completed";
     } else {
-      if (completedNodes.includes(node.id)) return "completed";
+      if (completedNodes.includes(qId)) return "completed";
     }
 
     const nodeIndex = roadmapNodes.findIndex(n => n.id === node.id);
     if (nodeIndex === 0) return "available";
 
     const prevNode = roadmapNodes[nodeIndex - 1];
+    const prevQId = `${activeCourse.toLowerCase()}_${prevNode.id}`;
     const isPrevCompleted = prevNode.type === "reading"
-      ? completedStories.includes(prevNode.id)
-      : completedNodes.includes(prevNode.id);
+      ? completedStories.includes(prevQId)
+      : completedNodes.includes(prevQId);
 
     if (isPrevCompleted) return "available";
 
