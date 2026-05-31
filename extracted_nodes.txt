@@ -1,0 +1,149 @@
+,{
+id:"node_8",title:"Reading Session 7",subtitle:j.subtitles[7],description:j.descriptions[7],estimatedXp:50,lessonsCount:5,type:"reading",phase:2
+}
+,{
+id:"node_9",title:"Reading Session 8",subtitle:j.subtitles[8],description:j.descriptions[8],estimatedXp:50,lessonsCount:5,type:"reading",phase:2
+}
+,{
+id:"node_10",title:"Knowledge Test 2",subtitle:j.subtitles[9],description:j.descriptions[9],estimatedXp:200,lessonsCount:20,type:"test",phase:2
+}
+,{
+id:"node_11",title:"Reading Session 9",subtitle:j.subtitles[10],description:j.descriptions[10],estimatedXp:50,lessonsCount:5,type:"reading",phase:3
+}
+,{
+id:"node_12",title:"Reading Session 10",subtitle:j.subtitles[11],description:j.descriptions[11],estimatedXp:50,lessonsCount:5,type:"reading",phase:3
+}
+,{
+id:"node_13",title:"Reading Session 11",subtitle:j.subtitles[12],description:j.descriptions[12],estimatedXp:50,lessonsCount:5,type:"reading",phase:3
+}
+,{
+id:"node_14",title:"Reading Session 12",subtitle:j.subtitles[13],description:j.descriptions[13],estimatedXp:50,lessonsCount:5,type:"reading",phase:3
+}
+,{
+id:"node_15",title:"Knowledge Test 3",subtitle:j.subtitles[14],description:j.descriptions[14],estimatedXp:300,lessonsCount:20,type:"test",phase:3
+}
+,{
+id:"node_16",title:"Final Comprehensive Test",subtitle:j.subtitles[15],description:j.descriptions[15],estimatedXp:1e3,lessonsCount:15,type:"final",phase:4
+}
+],[R,O]=N.useState(null),[F,W]=N.useState(0),[G,se]=N.useState(""),[ne,Q]=N.useState("idle"),[Y,le]=N.useState(null),[Z,fe]=N.useState(0),[ye,Ne]=N.useState(!1),[We,_e]=N.useState(0),[_,K]=N.useState({
+
+}
+),[$,oe]=N.useState(!1),[xe,C]=N.useState(0),[P,J]=N.useState(!1),[ee,ce]=N.useState([]),[pe,Me]=N.useState(!1),[Ze,De]=N.useState(5),[kt,Qe]=N.useState(600),At=N.useRef(null),[at,ht]=N.useState(!1),[zt,Vt]=N.useState([]),[Lt,I]=N.useState(!1),[we,Oe]=N.useState(null),[ze,St]=N.useState(!1);
+N.useEffect(()=>{
+O(null),Ne(!1),oe(!1)
+}
+,[l]);
+const is=he=>{
+if(he.type==="reading"){
+if(m.includes(he.id))return"completed"
+}
+else if(i.includes(he.id))return"completed";
+const Ce=L.findIndex(U=>U.id===he.id);
+if(Ce===0)return"available";
+const $e=L[Ce-1];
+return($e.type==="reading"?m.includes($e.id):i.includes($e.id))?"available":"locked"
+}
+,ot=()=>{
+ht(!0);
+const he=["#39ff14","#00A3FF","#00F0FF","#ff007f","#ffea00","#9d00ff"],Ce=Array.from({
+length:120
+}
+).map(($e,je)=>({
+id:je,x:Math.random()*100,delay:Math.random()*2,color:he[Math.floor(Math.random()*he.length)],size:Math.random()*10+6,duration:Math.random()*2.5+2
+}
+));
+Vt(Ce),setTimeout(()=>{
+ht(!1)
+}
+,4500)
+}
+;
+N.useEffect(()=>(ye&&(R==null?void 0:R.type)==="final"&&!$&&(At.current=setInterval(()=>{
+Qe(he=>he<=1?(clearInterval(At.current),zs(!0),0):he-1)
+}
+,1e3)),()=>{
+At.current&&clearInterval(At.current)
+}
+),[ye,$,R]);
+const ia=he=>{
+is(he)!=="locked"&&(O(he),W(0),se(""),Q("idle"),Ne(!1),_e(0),K({
+
+}
+),oe(!1),Qe(600),le(he.type==="reading"?"story":null),fe(0))
+}
+,zs=(he=!1)=>{
+var Pe;
+At.current&&clearInterval(At.current);
+const Ce=ee.length>0?ee:(R==null?void 0:R.type)==="final"?j.finalQuestions:(Pe=j.checkpoints[(R==null?void 0:R.id)||""])==null?void 0:Pe.questions;
+if(!Ce)return;
+let $e=0;
+Ce.forEach((ve,Xe)=>{
+_[Xe]===ve.a&&$e++
+}
+);
+const je=Math.round($e/Ce.length*100),U=(R==null?void 0:R.type)==="final"?70:50,te=je>=U;
+if(C(je),J(te),oe(!0),te&&R){
+if(ot(),a(R.estimatedXp,R.id),R.type==="final")Oe({
+title:`🏆 ${
+A
+}
+ Master`,xp:R.estimatedXp,badge:"🥇 Master Champion Badge",hint:`🎖 Graduate Certificate in ${
+A
+}
+ & Champion Title!`,cert:!0
+}
+);
+else{
+const ve=j.checkpoints[R.id];
+Oe({
+title:"📝 Checkpoint Test Sync",xp:R.estimatedXp,badge:(ve==null?void 0:ve.badge)||"Badge Unlock",hint:(ve==null?void 0:ve.hint)||"Hint reward unlocked"
+}
+)
+}
+setTimeout(()=>{
+I(!0)
+}
+,600)
+}
+else De(ve=>Math.max(0,ve-1))
+}
+,bs=()=>{
+O(null),Ne(!1),oe(!1),le(null),fe(0)
+}
+,mt=i.length,oa=L.length,Ls=oa>1?Math.min(100,Math.max(0,(mt-1)/(oa-1)*100)):0;
+return o.jsxs("div",{
+id:"roadmap_module",className:"min-h-full flex flex-col space-y-6 select-none relative",children:[o.jsx("style",{
+children:`
+        @keyframes confetti-fall-drift {
+
+          0% {
+
+            transform: translateY(-20px) rotate(0deg) translateX(0px);
+
+            opacity: 1;
+
+          
+}
+
+          50% {
+
+            transform: translateY(50vh) rotate(360deg) translateX(50px);
+
+            opacity: 0.8;
+
+          
+}
+
+          100% {
+
+            transform: translateY(105vh) rotate(720deg) translateX(-50px);
+
+            opacity: 0;
+
+          
+}
+
+        
+}
+
+        .confetti-piece {

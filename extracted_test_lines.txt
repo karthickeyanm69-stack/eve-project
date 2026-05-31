@@ -1,0 +1,660 @@
+}
+,exit:{
+scale:.9,opacity:0,y:50
+}
+,className:"w-full max-w-md bg-[#0a0a0a] border border-[#00A3FF]/30 rounded-3xl p-6 text-center shadow-[0_0_50px_rgba(0,163,255,0.15)] relative overflow-hidden",children:[o.jsx("div",{
+className:"absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-unai-neon via-unai-blue to-unai-purple"
+}
+),o.jsx("div",{
+className:"w-16 h-16 mx-auto rounded-full bg-gradient-to-tr from-[#00A3FF] to-[#00F0FF] flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(0,163,255,0.4)]",children:o.jsx(ti,{
+className:"w-8 h-8 text-black"
+}
+)
+}
+),o.jsx("h3",{
+className:"text-xl font-display font-bold text-white uppercase tracking-wider",children:"COMPILATION COMPLETE! 🎉"
+}
+),o.jsx("p",{
+className:"text-xs text-slate-400 mt-1 font-mono",children:we.title
+}
+),o.jsxs("div",{
+className:"bg-[#050505] border border-slate-900 rounded-2xl p-4 my-5 text-left space-y-3 font-mono",children:[o.jsxs("div",{
+className:"flex items-center justify-between text-xs border-b border-white/5 pb-2",children:[o.jsx("span",{
+className:"text-slate-500",children:"EXPERIENCE REWARD:"
+}
+),o.jsxs("span",{
+className:"text-[#00F0FF] font-bold",children:["+",we.xp," XP"]
+}
+)]
+}
+),o.jsxs("div",{
+className:"flex items-center justify-between text-xs border-b border-white/5 pb-2",children:[o.jsx("span",{
+className:"text-slate-500",children:"ACHIEVEMENT BADGE:"
+}
+),o.jsx("span",{
+className:"text-unai-neon font-bold flex items-center gap-1",children:we.badge
+}
+)]
+}
+),o.jsxs("div",{
+className:"text-xs pt-1",children:[o.jsx("span",{
+className:"text-slate-500 block mb-1",children:"UNLOCKED ITEMS:"
+}
+),o.jsx("span",{
+className:"text-slate-350 block text-[11px] leading-relaxed",children:we.hint
+}
+)]
+}
+)]
+}
+),o.jsxs("div",{
+className:"space-y-3",children:[we.cert&&o.jsx("button",{
+onClick:()=>{
+I(!1),St(!0)
+}
+,className:"w-full py-3 bg-unai-neon text-black font-display font-bold text-xs rounded-xl hover:scale-[1.01] active:scale-99 transition-all cursor-pointer shadow-[0_0_20px_rgba(57,255,20,0.3)] uppercase tracking-wide",children:"View Graduate Certificate 🎓"
+}
+),o.jsx("button",{
+onClick:()=>{
+I(!1),Oe(null),bs()
+}
+,className:"w-full py-3 bg-[#00A3FF] text-black font-display font-bold text-xs rounded-xl hover:scale-[1.01] active:scale-99 transition-all cursor-pointer uppercase tracking-wider",children:"Return to Roadmap"
+}
+)]
+}
+)]
+}
+)
+}
+)
+}
+),o.jsx(_s,{
+children:ze&&o.jsx("div",{
+className:"fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4",children:o.jsxs(vt.div,{
+initial:{
+scale:.95,opacity:0
+}
+,animate:{
+scale:1,opacity:1
+}
+,exit:{
+scale:.95,opacity:0
+}
+,className:"w-full max-w-2xl bg-[#090909] border-4 border-double border-[#00A3FF]/40 rounded-3xl p-8 sm:p-12 text-center shadow-[0_0_100px_rgba(0,163,255,0.25)] relative overflow-hidden",children:[o.jsx("div",{
+className:"absolute top-4 left-4 right-4 bottom-4 border border-[#00A3FF]/10 rounded-2xl pointer-events-none"
+}
+),o.jsx("div",{
+className:"absolute top-6 left-6 right-6 bottom-6 border border-dashed border-[#00A3FF]/10 rounded-2xl pointer-events-none"
+}
+),o.jsxs("div",{
+className:"flex justify-between items-start mb-6",children:[o.jsx("span",{
+className:"text-[10px] font-mono text-[#00A3FF] tracking-widest",children:"EVE × UNAI ECOSYSTEM"
+}
+),o.jsx("span",{
+className:"text-[10px] font-mono text-unai-neon tracking-widest",children:"VERIFIED COMPILER"
+}
+)]
+}
+),o.jsx("h2",{
+className:"text-3xl sm:text-4xl font-display font-bold text-white tracking-tight uppercase",children:"Certificate of Completion"
+}
+),o.jsx("div",{
+className:"w-32 h-1 bg-[#00A3FF] mx-auto my-6"
+}
+),o.jsx("p",{
+className:"text-xs sm:text-sm font-mono text-slate-400 max-w-lg mx-auto leading-relaxed",children:"This document verifies that the core credentials of the cadet system sync have successfully integrated and completed the"
+}
+),o.jsxs("h3",{
+className:"text-xl sm:text-2xl font-display font-bold text-unai-neon mt-4 uppercase tracking-widest",children:[A," Core Learning Path"]
+}
+),o.jsxs("div",{
+className:"my-8",children:[o.jsx("span",{
+className:"text-[11px] font-mono text-slate-500 uppercase block",children:"AWARDED TO CADET NODE"
+}
+),o.jsx("span",{
+className:"text-2xl sm:text-3xl font-display font-bold text-white block mt-2 border-b border-[#00A3FF]/20 pb-2 max-w-sm mx-auto",children:S||"VIDYON CADET"
+}
+)]
+}
+),o.jsxs("p",{
+className:"text-xs font-mono text-slate-400 max-w-md mx-auto leading-relaxed",children:["Completed with full passing score parameters across all core topics, checkpoint assessments and the comprehensive timed final exam in ",A,"."]
+}
+),o.jsxs("div",{
+className:"mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-slate-500",children:[o.jsxs("div",{
+className:"text-center sm:text-left",children:[o.jsx("span",{
+children:"DATE COMPLETED:"
+}
+),o.jsx("span",{
+className:"text-slate-350 block mt-1",children:new Date().toLocaleDateString()
+}
+)]
+}
+),o.jsx("div",{
+className:"w-16 h-16 rounded-full border-2 border-unai-neon/40 flex items-center justify-center text-unai-neon font-display font-extrabold text-sm shadow-[0_0_15px_rgba(57,255,20,0.15)] animate-pulse",children:"PASSED"
+}
+),o.jsxs("div",{
+className:"text-center sm:text-right",children:[o.jsx("span",{
+children:"SYSTEM CERTIFICATE ID:"
+}
+),o.jsxs("span",{
+className:"text-slate-350 block mt-1",children:["EVE-",A.substring(0,3).toUpperCase(),"-",Math.floor(Math.random()*9e5+1e5)]
+}
+)]
+}
+)]
+}
+),o.jsx("button",{
+onClick:()=>St(!1),className:"mt-8 px-8 py-3 bg-[#00A3FF] text-black font-display font-bold text-xs rounded-xl hover:scale-[1.01] transition-all cursor-pointer uppercase tracking-wider",children:"Close Certificate"
+}
+)]
+}
+)
+}
+)
+}
+),o.jsxs("div",{
+className:"grid grid-cols-1 lg:grid-cols-12 gap-6 items-start",children:[o.jsxs("div",{
+className:"lg:col-span-7 relative rounded-3xl overflow-hidden shadow-xl aspect-[2/3] w-full bg-cover bg-center",style:{
+backgroundImage:"url('/roadmap_bg.png')"
+}
+,children:[o.jsx("div",{
+className:"absolute inset-0 bg-black/10 pointer-events-none rounded-3xl"
+}
+),o.jsx(vt.div,{
+className:"absolute z-20 pointer-events-none text-indigo-500/80",initial:{
+left:"-10%",top:"4%",rotate:15,scale:.7
+}
+,animate:{
+left:["-10%","110%"],top:["4%","8%","3%","5%"],rotate:[15,20,10,15],scale:[.7,.9,.8,.7]
+}
+,transition:{
+duration:22,repeat:1/0,ease:"easeInOut"
+}
+,children:o.jsx("svg",{
+className:"w-6 h-6 fill-current drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]",viewBox:"0 0 24 24",children:o.jsx("path",{
+d:"M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
+}
+)
+}
+)
+}
+),o.jsxs("div",{
+className:"absolute top-0 inset-x-0 z-30 flex items-center justify-between px-5 pt-4 pb-2 pointer-events-none",children:[o.jsxs("button",{
+onClick:()=>{
+Ze<5&&(De(5),alert("💖 EVE Auto-regen complete: Hearts restored to 5!"))
+}
+,title:Ze<5?"Click to restore hearts":"Hearts fully charged",className:"flex items-center gap-1.5 bg-slate-900/90 hover:bg-slate-800/90 border border-slate-700/60 px-3.5 py-1.5 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-all active:scale-95 pointer-events-auto cursor-pointer outline-none",children:[o.jsx("span",{
+className:"text-sm",children:"❤️"
+}
+),o.jsx("span",{
+className:"font-black text-xs text-white",children:Ze
+}
+)]
+}
+),o.jsxs("div",{
+className:"flex items-center gap-1.5 bg-slate-900/95 border border-indigo-500/40 px-4 py-1.5 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.3)] select-none pointer-events-auto",children:[o.jsx("span",{
+className:"text-xs",children:A.toLowerCase().includes("python")?"🐍":A.toLowerCase().includes("java")?"☕":A.toLowerCase().includes("javascript")||A.toLowerCase().includes("web")?"🌐":"💻"
+}
+),o.jsx("span",{
+className:"text-[10px] font-black text-slate-200 uppercase tracking-widest",children:A
+}
+)]
+}
+),o.jsxs("div",{
+className:"flex items-center gap-1.5 bg-slate-900/90 border border-amber-500/50 px-3.5 py-1.5 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.3)] select-none pointer-events-auto",children:[o.jsx("span",{
+className:"text-sm",children:"⭐"
+}
+),o.jsxs("span",{
+className:"font-black text-xs text-amber-400",children:[g.toLocaleString()," XP"]
+}
+)]
+}
+)]
+}
+),o.jsx("div",{
+className:"absolute z-20 -translate-y-1/2 -translate-x-1/2",style:{
+left:"50%",top:"9%"
+}
+,children:o.jsxs("div",{
+className:"flex flex-col items-center",children:[o.jsx("div",{
+className:"w-10 h-10 bg-white border-2 border-slate-350 rounded-full flex items-center justify-center shadow-lg mb-1",children:o.jsx(on,{
+className:"w-5 h-5 text-slate-500 animate-pulse"
+}
+)
+}
+),o.jsx("div",{
+className:"bg-amber-700 border-2 border-amber-900 text-white font-black text-[9px] px-3 py-0.5 rounded-full shadow-lg uppercase tracking-widest",children:"Start"
+}
+)]
+}
+)
+}
+),o.jsx("div",{
+className:"absolute z-20 -translate-y-1/2 -translate-x-1/2 w-32",style:{
+left:"50%",top:"91%"
+}
+,children:o.jsxs("div",{
+className:"flex flex-col items-center",children:[o.jsxs("div",{
+className:"relative w-16 h-16 rounded-full border-4 border-slate-400 bg-white flex items-center justify-center shadow-lg",children:[o.jsx("div",{
+className:"absolute top-[-8px] text-[10px] w-5 h-5 bg-amber-400 rounded-full flex items-center justify-center border border-slate-400 shadow-sm font-bold",children:"🐍"
+}
+),o.jsx("div",{
+className:"absolute left-[-8px] text-[8px] w-5 h-5 bg-yellow-400 rounded-full flex items-center justify-center border border-slate-400 shadow-sm font-black",children:"JS"
+}
+),o.jsx("div",{
+className:"absolute right-[-8px] text-[9px] w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center border border-slate-400 shadow-sm font-black text-white",children:"C"
+}
+),o.jsx("div",{
+className:"w-10 h-10 rounded-full bg-amber-100 border-2 border-amber-400 flex items-center justify-center shadow-inner",children:o.jsx("span",{
+className:"text-base",children:"⭐"
+}
+)
+}
+)]
+}
+),o.jsx("div",{
+className:"bg-gradient-to-r from-slate-650 to-slate-800 border-2 border-slate-900 text-white font-black text-[9px] px-3 py-0.5 rounded-full shadow-lg uppercase tracking-widest mt-1",children:"Next Level"
+}
+)]
+}
+)
+}
+),(()=>{
+const he=L.find(U=>is(U)==="available"),Ce=he?cy[he.id]:null;
+if(!Ce)return null;
+const $e=Ce.x<50?7.5:-7.5;
+let je=0;
+return he.type==="final"?je=64:he.type==="test"&&(je=52),o.jsx("div",{
+className:"absolute z-35 -translate-y-1/2 -translate-x-1/2 transition-all duration-700",style:{
+left:`${
+Ce.x+$e
+}
+%`,top:`calc(${
+Ce.y
+}
+% + ${
+je
+}
+px)`
+}
+,children:o.jsxs("div",{
+className:"flex flex-col items-center",children:[o.jsx("div",{
+className:"bg-sky-500/90 text-white font-mono font-bold text-[7.5px] px-1 rounded-sm shadow-md animate-bounce mb-1",children:"ACTIVE"
+}
+),o.jsx("div",{
+className:"w-9 h-9 bg-white border-2 border-sky-400 rounded-full flex items-center justify-center shadow-lg",children:o.jsx(on,{
+className:"w-5 h-5 text-sky-500"
+}
+)
+}
+)]
+}
+)
+}
+)
+}
+)(),L.map(he=>{
+const Ce=is(he),$e=cy[he.id]||{
+x:50,y:50
+}
+;
+let je="",U=null;
+const te=()=>o.jsxs("svg",{
+className:"w-5 h-5 fill-none stroke-current",viewBox:"0 0 24 24",strokeWidth:"2",children:[o.jsx("path",{
+d:"M3 21V8l3-3h12l3 3v13",strokeLinecap:"round",strokeLinejoin:"round"
+}
+),o.jsx("path",{
+d:"M9 21v-4a3 3 0 0 1 6 0v4",strokeLinecap:"round",strokeLinejoin:"round"
+}
+),o.jsx("path",{
+d:"M10 17h4M10 19h4M12 17v4",strokeLinecap:"round",strokeLinejoin:"round"
+}
+),o.jsx("path",{
+d:"M7 8h10",strokeLinecap:"round",strokeLinejoin:"round"
+}
+)]
+}
+),Pe=()=>o.jsxs("svg",{
+className:"w-5 h-5 fill-none stroke-current",viewBox:"0 0 24 24",strokeWidth:"2",children:[o.jsx("path",{
+d:"M3 21V8l3-3h12l3 3v13",strokeLinecap:"round",strokeLinejoin:"round"
+}
+),o.jsx("path",{
+d:"M9 21v-6a3 3 0 0 1 6 0v6",strokeLinecap:"round",strokeLinejoin:"round"
+}
+),o.jsx("path",{
+d:"M6 14l3 7M18 14l-3 7",strokeLinecap:"round",strokeLinejoin:"round"
+}
+)]
+}
+);
+he.type==="final"?Ce==="completed"?(je="w-24 h-24 flex items-center justify-center text-emerald-400 filter drop-shadow-[0_0_10px_rgba(16,185,129,0.8)]",U=o.jsx(ti,{
+className:"w-10 h-10"
+}
+)):Ce==="available"?(je="w-28 h-28 flex items-center justify-center text-amber-300 filter drop-shadow-[0_0_15px_rgba(245,158,11,0.9)] animate-pulse",U=o.jsx(ti,{
+className:"w-12 h-12"
+}
+)):(je="w-24 h-24 flex items-center justify-center text-slate-500/80",U=o.jsx(Pr,{
+className:"w-7 h-7"
+}
+)):he.type==="test"?Ce==="completed"?(je="w-18 h-18 flex items-center justify-center text-emerald-400 filter drop-shadow-[0_0_8px_rgba(16,185,129,0.6)]",U=o.jsx(si,{
+className:"w-7 h-7 stroke-[3]"
+}
+)):Ce==="available"?(je="w-20 h-20 flex items-center justify-center text-purple-300 filter drop-shadow-[0_0_12px_rgba(168,85,247,0.8)] animate-pulse",U=o.jsx(Pe,{
+
+}
+)):(je="w-18 h-18 flex items-center justify-center text-slate-500/80",U=o.jsx(te,{
+
+}
+)):Ce==="completed"?(je="w-14 h-14 flex items-center justify-center text-emerald-400 filter drop-shadow-[0_0_8px_rgba(16,185,129,0.6)]",U=o.jsx(si,{
+className:"w-6 h-6 stroke-[3]"
+}
+)):Ce==="available"?(je="w-16 h-16 flex items-center justify-center text-sky-400 filter drop-shadow-[0_0_12px_rgba(56,189,248,0.8)] animate-pulse",U=o.jsx("svg",{
+className:"w-6 h-6 fill-none stroke-current",viewBox:"0 0 24 24",strokeWidth:"2.5",children:o.jsx("path",{
+strokeLinecap:"round",strokeLinejoin:"round",d:"M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+}
+)
+}
+)):(je="w-14 h-14 flex items-center justify-center text-slate-500/80",U=o.jsx(Pr,{
+className:"w-5 h-5"
+}
+));
+let ve={
+
+}
+,Xe=null;
+return he.type==="final"?(ve={
+transform:"translateY(64px)"
+}
+,Xe=o.jsx("div",{
+className:"absolute left-1/2 -translate-x-1/2 w-[3px] bg-gradient-to-b from-amber-500/20 to-amber-500/80 shadow-[0_0_8px_rgba(245,158,11,0.6)] rounded pointer-events-none",style:{
+top:"40px",height:"64px"
+}
+
+}
+)):he.type==="test"?(ve={
+transform:"translateY(52px)"
+}
+,Xe=o.jsx("div",{
+className:"absolute left-1/2 -translate-x-1/2 w-[2.5px] bg-gradient-to-b from-purple-500/20 to-purple-500/80 shadow-[0_0_8px_rgba(168,85,247,0.5)] rounded pointer-events-none",style:{
+top:"40px",height:"52px"
+}
+
+}
+)):ve={
+
+}
+,o.jsx("div",{
+className:"absolute -translate-x-1/2 -translate-y-1/2 z-25 transition-all duration-300 hover:scale-[1.03] hover:z-35",style:{
+left:`${
+$e.x
+}
+%`,top:`${
+$e.y
+}
+%`
+}
+,children:o.jsxs("div",{
+className:"flex flex-col items-center relative w-20 h-20",children:[Xe,o.jsxs("button",{
+onClick:()=>ia(he),className:`relative transition-all hover:scale-105 active:scale-95 flex items-center justify-center ${
+je
+}
+ ${
+Ce==="locked"?"cursor-not-allowed":"cursor-pointer"
+}
+ z-20`,style:ve,children:[Ce==="available"&&o.jsx("div",{
+className:"absolute inset-[-5px] rounded-full border-2 border-sky-400/80 animate-ping pointer-events-none"
+}
+),U]
+}
+)]
+}
+)
+}
+,he.id)
+}
+)]
+}
+),o.jsx("div",{
+id:"quiz_panel",className:"lg:col-span-5 relative z-40 lg:sticky lg:top-6 h-fit",children:o.jsx(_s,{
+mode:"wait",children:R?o.jsx(vt.div,{
+initial:{
+opacity:0
+}
+,animate:{
+opacity:1
+}
+,exit:{
+opacity:0
+}
+,className:`fixed inset-0 z-50 flex flex-col overflow-hidden ${
+R.type==="reading"?"bg-[#0b0518]":"bg-white"
+}
+`,children:R.type==="reading"?o.jsxs("div",{
+className:"flex-1 w-full h-full flex flex-col bg-[#0b0518] relative select-none font-serif",children:[o.jsxs("div",{
+className:"flex items-center justify-between px-6 py-3 border-b border-amber-900/40 bg-gradient-to-r from-amber-950 via-purple-950 to-amber-950 text-amber-100/90 shadow-md shrink-0",children:[o.jsx("div",{
+className:"flex items-center gap-3",children:o.jsxs("span",{
+className:"text-[10px] tracking-widest uppercase text-amber-400 font-bold font-mono",children:["👑 ROYAL COURT OF TAMIL WISDOM • ",A.toUpperCase()]
+}
+)
+}
+),o.jsx("button",{
+onClick:bs,className:"text-amber-100 hover:text-amber-300 font-mono text-xs border border-amber-800 px-3 py-1.5 rounded-lg bg-amber-950/60 hover:bg-amber-900/80 transition-colors cursor-pointer",children:"✕ Exit Court"
+}
+)]
+}
+),o.jsx("div",{
+className:"flex-1 flex items-center justify-center p-4 overflow-hidden relative",children:o.jsx("div",{
+className:"w-full max-w-[850px] aspect-square relative shadow-[0_0_50px_rgba(0,0,0,0.8)] border-4 border-amber-900/60 rounded-2xl overflow-hidden bg-[url('/royal_court_bg.jpg')] bg-cover bg-center",children:(()=>{
+var je,U,te,Pe;
+const he=s5(A,R.id,j),Ce=he.scenes[Z],$e=ve=>{
+var Xe,Nt,os;
+switch(ve){
+case 0:return"EVE AI Core: Initializing logic buffers. Tap 'Next Scene' to start our royal curriculum exploration.";
+case 1:return`EVE AI Core: This slide establishes the core fundamentals: "${
+((Xe=j.lessons[R.id])==null?void 0:Xe.slides[0])||"Variables"
+}
+"`;
+case 2:return`EVE AI Core: Deep variables parsed! Remember: "${
+((Nt=j.lessons[R.id])==null?void 0:Nt.slides[1])||"Logic Gates"
+}
+"`;
+case 3:return`EVE AI Core: Buffer optimization check: "${
+((os=j.lessons[R.id])==null?void 0:os.slides[2])||"Parameters"
+}
+"`;
+case 4:return"EVE AI Core: We have reached the final checkpoint. Calibrate the options inside the Left scroll to sync!";
+default:return"EVE AI Core: Guide active."
+}
+
+}
+;
+return o.jsxs(o.Fragment,{
+children:[o.jsxs("div",{
+className:"absolute top-[9%] left-[25.5%] w-[48%] h-[24.5%] flex flex-col justify-center px-6 text-center overflow-y-auto scrollbar-thin select-text",children:[o.jsxs("h4",{
+className:"text-[11px] font-bold text-purple-950 uppercase tracking-wide leading-tight",children:[he.title," • SCENE ",Ce.id]
+}
+),o.jsx("p",{
+className:"text-[10px] text-amber-900/90 leading-snug mt-1 font-medium italic font-serif",children:Ce.narrative
+}
+)]
+}
+),o.jsxs("div",{
+className:"absolute left-[4%] top-[37.5%] w-[33%] h-[38%] flex flex-col p-3.5 bg-[#fdfaf2]/95 border-2 border-amber-900/60 rounded-xl shadow-xl overflow-y-auto scrollbar-thin text-amber-950",children:[o.jsx("h5",{
+className:"text-[9.5px] font-bold text-amber-900 uppercase tracking-widest mb-1 border-b border-amber-900/20 pb-0.5",children:"👑 King's Decree & Questions"
+}
+),Z<4?o.jsx("div",{
+className:"space-y-2 select-text",children:Ce.dialogues.slice(0,2).map((ve,Xe)=>o.jsxs("div",{
+className:"text-[9.5px] leading-relaxed",children:[o.jsxs("span",{
+className:"font-bold text-purple-900 block font-mono text-[8px] uppercase tracking-wider",children:[ve.character==="EVE"?"MINISTER":ve.character.toUpperCase()," (",ve.role,")"]
+}
+),o.jsxs("p",{
+className:"text-amber-950 italic mt-0.5 font-serif font-medium",children:["“",ve.text,"”"]
+}
+)]
+}
+,Xe))
+}
+):o.jsxs("div",{
+className:"space-y-2 select-text",children:[o.jsx("div",{
+className:"text-[9.5px] font-semibold text-amber-950 leading-tight bg-amber-100/60 p-1.5 rounded border border-amber-900/10 font-sans",children:(je=Ce.challenge)==null?void 0:je.q
+}
+),ne==="idle"?o.jsxs("div",{
+className:"space-y-1 pt-1",children:[(U=Ce.challenge)==null?void 0:U.o.map((ve,Xe)=>{
+const Nt=G===ve;
+return o.jsxs("button",{
+onClick:()=>se(ve),className:`w-full p-1.5 rounded text-left text-[9px] font-mono border transition-all flex items-center gap-1.5 cursor-pointer ${
+Nt?"bg-purple-950 border-purple-900 text-white font-bold":"bg-white/60 border-amber-900/20 text-amber-950 hover:bg-white/80"
+}
+`,children:[o.jsx("span",{
+className:"text-[8px] bg-amber-200/80 px-1 border border-amber-900/20 rounded font-bold text-amber-950",children:String.fromCharCode(65+Xe)
+}
+),o.jsx("span",{
+className:"leading-snug",children:ve
+}
+)]
+}
+,Xe)
+}
+),o.jsx("button",{
+disabled:!G,onClick:()=>{
+var Xe;
+G===((Xe=Ce.challenge)==null?void 0:Xe.a)?(Q("correct"),ot(),h(R.id,"story",he.xp),Oe({
+title:`${
+R.title
+}
+ (Royal Court Mode)`,xp:he.xp,badge:`${
+A
+}
+ Court Scholar 👑`,hint:"+1 Lesson Mastered in Royal Court"
+}
+),I(!0)):(Q("incorrect"),De(Nt=>Math.max(0,Nt-1)))
+}
+,className:"w-full py-1.5 bg-gradient-to-r from-amber-800 to-purple-900 text-amber-100 font-bold text-[8.5px] rounded transition-all uppercase tracking-wider shadow cursor-pointer mt-1 font-mono",children:"Present Answer to King"
+}
+)]
+}
+):o.jsxs("div",{
+className:"space-y-2 pt-1 text-center font-sans",children:[o.jsxs("div",{
+className:`p-2 rounded border text-[8.5px] leading-relaxed ${
+ne==="correct"?"bg-emerald-100/70 border-emerald-300 text-emerald-950":"bg-red-100/70 border-red-300 text-red-950"
+}
+`,children:[o.jsx("span",{
+className:"font-bold block uppercase tracking-wider",children:ne==="correct"?"👑 APPROVED BY KING!":"❌ STUDY THE SLIDES"
+}
+),o.jsx("p",{
+className:"mt-1 font-serif",children:(te=Ce.challenge)==null?void 0:te.explanation
+}
+)]
+}
+),ne==="correct"?o.jsx("button",{
+onClick:()=>bs(),className:"w-full py-1.5 bg-emerald-700 text-white font-bold text-[8.5px] rounded hover:bg-emerald-800 transition-all uppercase tracking-wider cursor-pointer",children:"Return to Map"
+}
+):o.jsxs("button",{
+onClick:()=>{
+se(""),Q("idle")
+}
+,className:"w-full py-1.5 bg-amber-800 text-amber-100 font-bold text-[8.5px] rounded hover:bg-amber-900 transition-all uppercase tracking-wider cursor-pointer flex items-center justify-center gap-1",children:[o.jsx(gk,{
+className:"w-3 h-3"
+}
+)," Try Again"]
+}
+)]
+}
+)]
+}
+)]
+}
+),o.jsxs("div",{
+className:"absolute right-[4%] top-[37.5%] w-[33%] h-[38%] flex flex-col p-3.5 bg-[#fdfaf2]/95 border-2 border-amber-900/60 rounded-xl shadow-xl overflow-y-auto scrollbar-thin select-text text-amber-950",children:[o.jsx("h5",{
+className:"text-[9.5px] font-bold text-amber-900 uppercase tracking-widest mb-1 border-b border-amber-900/20 pb-0.5",children:"📜 Poet's Palm-Leaf Wisdom"
+}
+),o.jsxs("div",{
+className:"space-y-2 text-[9.5px] leading-relaxed font-serif text-amber-950",children:[o.jsx("span",{
+className:"font-bold text-purple-900 block font-mono text-[8px] uppercase tracking-wider",children:"TAMIL POET (Knowledge Master)"
+}
+),Z===0&&o.jsx("p",{
+className:"font-medium",children:"“Greetings, noble scholar! Let us examine the structures of logic that guide this realm. Behold the lessons transcribed on our leaves.”"
+}
+),Z>0&&Z<5&&o.jsxs("div",{
+className:"space-y-1.5 font-medium",children:[o.jsxs("p",{
+className:"bg-amber-50/50 p-1.5 rounded border border-amber-900/10 italic",children:["“Slide ",Z,": ",((Pe=j.lessons[R.id])==null?void 0:Pe.slides[Z-1])||"Wise guidelines await.","”"]
+}
+),Ce.dialogues.length>2&&o.jsxs("p",{
+className:"mt-1",children:[o.jsx("span",{
+className:"font-bold text-amber-900 font-mono text-[8px] block",children:"ADDITIONAL DETAIL:"
+}
+),"“",Ce.dialogues[2].text,"”"]
+}
+)]
+}
+),Z===4&&o.jsx("p",{
+className:"font-medium",children:"“The King challenges your wisdom. Meditate upon the options in the Question scroll and prove your logic is sound!”"
+}
+)]
+}
+)]
+}
+),o.jsxs("div",{
+className:"absolute top-[67%] left-[43.5%] w-[33%] h-[22.5%] flex flex-col p-3 overflow-y-auto scrollbar-thin select-text",children:[o.jsxs("h5",{
+className:"text-[8.5px] font-bold text-amber-950/80 uppercase tracking-widest mb-0.5 border-b border-amber-900/20 pb-0.5 flex justify-between items-center",children:[o.jsx("span",{
+children:"🤖 Assistant Companion"
+}
+),c&&Z===4&&ne==="idle"&&o.jsxs("button",{
+type:"button",onClick:()=>{
+var Nt,os;
+const ve=(Nt=Ce.challenge)==null?void 0:Nt.q,Xe=(os=Ce.challenge)==null?void 0:os.o.join(", ");
+c==null||c(`I am stuck in Story Mode for "${
+R.subtitle
+}
+". The final challenge is: "${
+ve
+}
+" with options [${
+Xe
+}
+]. Without directly giving away the correct answer, can you explain the underlying concept in character?`)
+}
+,className:"text-[7.5px] font-mono text-purple-900 hover:underline flex items-center gap-0.5 cursor-pointer bg-transparent border-0",children:[o.jsx(on,{
+className:"w-2.5 h-2.5"
+}
+)," Guide"]
+}
+)]
+}
+),o.jsx("p",{
+className:"text-[9px] text-amber-900 leading-snug font-medium italic",children:$e(Z)
+}
+)]
+}
+),o.jsxs("div",{
+className:"absolute bottom-[2%] left-1/2 -translate-x-1/2 flex items-center justify-between w-[92%] px-4 py-1.5 bg-gradient-to-r from-amber-950 via-yellow-900 to-amber-950 border-2 border-amber-600/80 rounded-xl shadow-lg",children:[o.jsxs("button",{
+disabled:Z===0,onClick:()=>fe(ve=>ve-1),className:"px-3 py-1 bg-amber-900/60 border border-amber-600 text-amber-100 hover:bg-amber-800 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-[10px] font-mono flex items-center gap-1 cursor-pointer",children:[o.jsx(LC,{
+className:"w-3 h-3"
+}
+)," Court Back"]
+}
+),o.jsxs("span",{
+className:"text-[10px] text-amber-200 font-mono tracking-wider",children:["COURT IN SESSION: SCENE ",Z+1," / 5"]
+}
+),Z<4?o.jsxs("button",{
+onClick:()=>fe(ve=>ve+1),className:"px-3 py-1 bg-amber-100 border border-amber-300 text-amber-950 hover:bg-amber-200 rounded-lg text-[10px] font-mono flex items-center gap-1 font-bold cursor-pointer",children:["Next Scene ",o.jsx(VC,{
+className:"w-3 h-3"
+}
+)]
+}
+):o.jsx("span",{
+className:"text-[10px] text-amber-400 font-bold uppercase tracking-wider animate-pulse",children:"Awaiting Decree"
+}
+)]
+}
+)]
+}
+)
+}
+)()
+}
+)
+}
+)]
+}
+):o.jsxs(o.Fragment,{

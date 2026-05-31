@@ -1,0 +1,200 @@
+e",personality:"Knowledgeable, helpful",motivation:"Protect Aria from ancient defensive logic traps",avatar:"🤖"
+}
+,{
+name:"Nix",age:"1",role:"Scout Drone",personality:"Silly, alert",motivation:"Map corridors and locate variables in memory banks",avatar:"👾"
+}
+]):c.includes("ai")||c.includes("machine")||c.includes("learning")||c.includes("data")?(v="Synthwave Cyberpunk",S="Neural Nexus Core",A="A neon-soaked server network pulsing with self-learning neural synapses and gradient vectors.",j="Operation: Synaptic Sync",L="Train the mainframe algorithms and adjust synaptic weight values to prevent a database collapse.",R=`Neural Nexus: ${
+b
+}
+`,O=[{
+name:"Cipher",age:"25",role:"Synapse Engineer",personality:"Focused, analytical, cool",motivation:"Calibrate self-learning neural engines",avatar:"🧠"
+}
+,{
+name:"EVE",age:"Infinite",role:"Nexus System AI Core",personality:"Sophisticated, protective",motivation:"Optimize learning rates and loss functions",avatar:"🤖"
+}
+,{
+name:"Scalar",age:"2",role:"Validation Sprite",personality:"Dynamic, quick",motivation:"Track data accuracy and F1 scores",avatar:"📈"
+}
+]):(c.includes("security")||c.includes("cyber"))&&(v="Hacking Thriller / Cyber Ops",S="The Rogue Sector Firewall",A="A dark virtual grid protected by glowing green walls of code and security subroutines.",j="Operation: Sentinel Breach",L="Audit encryption blocks and patch security gaps before rogue subroutines override system privileges.",R=`Red-Team Ops: ${
+b
+}
+`,O=[{
+name:"Apex",age:"21",role:"Red-Team Auditor",personality:"Intelligent, rebellious, precise",motivation:"Keep network grids safe from malicious intrusions",avatar:"🕵️"
+}
+,{
+name:"EVE",age:"Infinite",role:"Defense Subroutine Sentinel",personality:"Authoritative, vigilant",motivation:"Guard core logic registers and decrypt signals",avatar:"🤖"
+}
+,{
+name:"Cipher-Dog",age:"4",role:"Support Daemon",personality:"Alert, hyperactive",motivation:"Decompress network logs and scan ports",avatar:"🐶"
+}
+]);
+const F=O[1].name,W=O[0].name,G=O[2].name,se=[{
+id:1,title:"Sector Outage Alarm",narrative:`Warning! A logical mismatch has triggered in ${
+S
+}
+. Energy grids fluctuate. ${
+W
+}
+ checks the console while ${
+F
+}
+ initializes data logs.`,dialogues:[{
+character:F,role:O[1].role,avatar:O[1].avatar,text:"Warning, cadet! A critical exception has locked our parameters in this sector. We must deploy standard synchronization protocols."
+}
+,{
+character:W,role:O[0].role,avatar:O[0].avatar,text:`System online. I am opening the telemetry buffers. What are we dealing with, ${
+F
+}
+?`
+}
+,{
+character:G,role:O[2].role,avatar:O[2].avatar,text:"Squeak! Core registers detected! Memory allocation is currently unmapped!"
+}
+],imagePrompt:"Futuristic dark room with glowing blue holographic screens, cyberpunk digital environment, detailed illustration, sci-fi concept art",voiceover:"System alert. Sector integrity is decaying. Initialize synchronization protocols.",musicStyle:"Dark Synthwave, slow pulse"
+}
+,{
+id:2,title:"Scanning the Blueprint",narrative:`${
+F
+}
+ scans the sector database and decrypts the initial transmission log. To proceed, ${
+W
+}
+ must comprehend the basic layers.`,dialogues:[{
+character:F,role:O[1].role,avatar:O[1].avatar,text:`Analyze this blueprint transmission data immediately: "${
+m[0]||m[1]
+}
+"`
+}
+,{
+character:W,role:O[0].role,avatar:O[0].avatar,text:"Ah! That establishes our foundation variables. So we are structuring our logic container first!"
+}
+,{
+character:G,role:O[2].role,avatar:O[2].avatar,text:"Bip-bip! Diagnostic scan complete. Let's calibrate the next logical coordinate!"
+}
+],imagePrompt:"Holographic grid blueprint floating in midair, blue and violet lighting, digital interface, detailed, cinematic lighting",voiceover:"Telemetry decrypted. Analyzing core database structures.",musicStyle:"Tech Ambient, digital clicks"
+}
+,{
+id:3,title:"Logic Core Alignment",narrative:`Deep inside the mainframe, you encounter the primary processor nodes. ${
+W
+}
+ must apply core parameters to calibrate the system flow.`,dialogues:[{
+character:F,role:O[1].role,avatar:O[1].avatar,text:`Excellent progress. We are approaching the primary alignment gate. Review this technical parameter: "${
+m[2]||m[1]
+}
+"`
+}
+,{
+character:W,role:O[0].role,avatar:O[0].avatar,text:"Got it! This binds our active components together. The grid vectors are stabilizing."
+}
+],imagePrompt:"Power generator node glowing with blue electricity, high technology matrix, detailed, Unreal Engine render",voiceover:"Approaching logic gate. Calibrating system parameters.",musicStyle:"Electronic Beats, retro futuristic"
+}
+,{
+id:4,title:"Optimizing the Grid Buffer",narrative:`A network bottleneck triggers! Defensive security systems lock down the sector. ${
+W
+}
+ applies technical optimizations to clear the queue.`,dialogues:[{
+character:F,role:O[1].role,avatar:O[1].avatar,text:`Warning! Queue limit reached. We must optimize memory parameters immediately: "${
+m[3]||m[4]
+}
+"`
+}
+,{
+character:W,role:O[0].role,avatar:O[0].avatar,text:"Applying memory allocation sweeps now. The buffer backlog is clearing! The terminal console is active!"
+}
+],imagePrompt:"Network server racks with pulsing green and red LEDs, network cables, dark futuristic server room, detailed",voiceover:"System bottleneck detected. Initiating buffer clear sweeps.",musicStyle:"Action Synth, fast pacing"
+}
+,{
+id:5,title:"Terminal Override Mission",narrative:"You stand before the sector central console. To complete the mission and bypass system lockouts, you must override the logic gate question.",dialogues:[{
+character:F,role:O[1].role,avatar:O[1].avatar,text:"The control mainframe requires a validated compile confirmation. Answer the check parameter to deploy the system patch!"
+}
+],challenge:{
+q:h,o:g,a:y,explanation:p
+}
+,imagePrompt:"Cadet typing on a large glowing terminal keyboard, giant cyberpunk monitor screen, dark shadows, epic scale",voiceover:"Terminal override active. Input logical validation check.",musicStyle:"Tense Orchestral Synth, dramatic climax"
+}
+];
+return{
+id:`story_${
+i
+}
+`,lessonId:i,title:R,genre:v,missionName:j,missionGoal:L,worldName:S,worldDesc:A,xp:50,scenes:se,charactersList:O
+}
+
+}
+,cy={
+node_1:{
+x:37,y:16
+}
+,node_2:{
+x:61,y:21
+}
+,node_3:{
+x:27,y:29
+}
+,node_4:{
+x:25,y:38
+}
+,node_5:{
+x:61,y:29.5
+}
+,node_6:{
+x:68,y:42.5
+}
+,node_7:{
+x:23,y:49
+}
+,node_8:{
+x:21,y:58
+}
+,node_9:{
+x:68,y:63.5
+}
+,node_10:{
+x:61,y:51.5
+}
+,node_11:{
+x:20,y:67
+}
+,node_12:{
+x:64,y:68
+}
+,node_13:{
+x:27,y:77
+}
+,node_14:{
+x:48,y:78
+}
+,node_15:{
+x:63,y:81
+}
+,node_16:{
+x:50,y:88.5
+}
+
+}
+;
+function a5({
+onNodeComplete:a,completedNodes:i,activeInterest:l,onAskEve:c,completedReadings:d,completedStories:m,onModeComplete:h,xp:g,level:y,streak:p,achievements:b,hasCertificate:v,profileName:S
+}
+){
+const A=l||"Web Development",j=t5(A),L=[{
+id:"node_1",title:"Reading Session 1",subtitle:j.subtitles[0],description:j.descriptions[0],estimatedXp:50,lessonsCount:5,type:"reading",phase:1
+}
+,{
+id:"node_2",title:"Reading Session 2",subtitle:j.subtitles[1],description:j.descriptions[1],estimatedXp:50,lessonsCount:5,type:"reading",phase:1
+}
+,{
+id:"node_3",title:"Reading Session 3",subtitle:j.subtitles[2],description:j.descriptions[2],estimatedXp:50,lessonsCount:5,type:"reading",phase:1
+}
+,{
+id:"node_4",title:"Reading Session 4",subtitle:j.subtitles[3],description:j.descriptions[3],estimatedXp:50,lessonsCount:5,type:"reading",phase:1
+}
+,{
+id:"node_5",title:"Knowledge Test 1",subtitle:j.subtitles[4],description:j.descriptions[4],estimatedXp:200,lessonsCount:20,type:"test",phase:1
+}
+,{
+id:"node_6",title:"Reading Session 5",subtitle:j.subtitles[5],description:j.descriptions[5],estimatedXp:50,lessonsCount:5,type:"reading",phase:2
+}
+,{
+id:"node_7",title:"Reading Session 6",subtitle:j.subtitles[6],description:j.descriptions[6],estimatedXp:50,lessonsCount:5,type:"reading",phase:2
+}

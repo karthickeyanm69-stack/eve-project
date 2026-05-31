@@ -1,0 +1,334 @@
+children:[o.jsx("div",{
+className:`h-1 w-full shrink-0 ${
+ne==="correct"||P?"bg-emerald-500":ne==="incorrect"?"bg-red-500":"bg-sky-500"
+}
+`
+}
+),o.jsxs("div",{
+className:"flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-white shrink-0 shadow-sm",children:[o.jsxs("div",{
+className:"flex items-center gap-3",children:[o.jsx("div",{
+className:"w-8 h-8 rounded-lg bg-sky-50 border border-sky-200 flex items-center justify-center",children:o.jsx(EC,{
+className:"w-4 h-4 text-sky-600"
+}
+)
+}
+),o.jsxs("div",{
+children:[o.jsxs("span",{
+className:"text-[10px] font-mono text-sky-600 uppercase tracking-widest font-bold block leading-none",children:[A.toUpperCase()," • ",R.type.toUpperCase()]
+}
+),o.jsxs("h3",{
+className:"text-sm font-display font-bold text-slate-800 mt-0.5",children:[R.title," — ",R.subtitle]
+}
+)]
+}
+)]
+}
+),o.jsx("button",{
+onClick:bs,className:"flex items-center gap-1.5 text-slate-500 hover:text-slate-800 font-mono text-xs cursor-pointer border border-slate-200 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition-colors",children:"✕ Exit Session"
+}
+)]
+}
+),o.jsx("div",{
+className:"flex-1 overflow-y-auto",children:o.jsxs("div",{
+className:"max-w-3xl mx-auto px-6 py-8 text-left",children:[o.jsx("p",{
+className:"text-xs text-slate-500 mb-6 font-sans",children:R.description
+}
+),o.jsx("div",{
+className:"h-px bg-slate-100 mb-6"
+}
+)]
+}
+)
+}
+)]
+}
+)
+}
+,R.id):o.jsxs("div",{
+className:"bg-white border border-slate-200 shadow-sm p-6 rounded-3xl flex flex-col gap-5 h-full min-h-[350px] text-left",children:[o.jsxs("div",{
+className:"flex items-center gap-3",children:[o.jsx("div",{
+className:"w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-500 flex items-center justify-center shadow-md",children:o.jsx(Z0,{
+className:"w-5 h-5 text-white"
+}
+)
+}
+),o.jsxs("div",{
+children:[o.jsx("h4",{
+className:"font-display font-bold text-slate-800 uppercase tracking-wider text-sm",children:"Calibration Panel"
+}
+),o.jsxs("p",{
+className:"text-[9px] text-sky-600 font-mono uppercase tracking-widest leading-none mt-0.5",children:[A," Track"]
+}
+)]
+}
+)]
+}
+),o.jsxs("div",{
+className:"bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3 font-mono",children:[o.jsxs("div",{
+className:"flex justify-between items-center text-xs",children:[o.jsx("span",{
+className:"text-slate-500",children:"ACTIVE LEVEL:"
+}
+),o.jsxs("span",{
+className:"text-emerald-600 font-bold",children:["LEVEL ",y]
+}
+)]
+}
+),o.jsxs("div",{
+className:"flex justify-between items-center text-xs",children:[o.jsx("span",{
+className:"text-slate-500",children:"TOTAL SCORE:"
+}
+),o.jsxs("span",{
+className:"text-sky-600 font-bold",children:[g.toLocaleString()," XP"]
+}
+)]
+}
+),o.jsxs("div",{
+className:"flex justify-between items-center text-xs",children:[o.jsx("span",{
+className:"text-slate-500",children:"STREAK:"
+}
+),o.jsxs("span",{
+className:"text-orange-500 font-bold flex items-center gap-1",children:[o.jsx(Vd,{
+className:"w-3.5 h-3.5 fill-orange-400"
+}
+)," ",p," DAYS"]
+}
+)]
+}
+),o.jsxs("div",{
+className:"pt-1",children:[o.jsxs("div",{
+className:"flex justify-between text-[10px] text-slate-500 mb-1",children:[o.jsx("span",{
+children:"COMPLETION:"
+}
+),o.jsxs("span",{
+children:[Math.round(Ls),"%"]
+}
+)]
+}
+),o.jsx("div",{
+className:"w-full bg-slate-200 h-2 rounded-full overflow-hidden",children:o.jsx("div",{
+className:"bg-gradient-to-r from-sky-500 to-indigo-500 h-2 transition-all duration-500",style:{
+width:`${
+Ls
+}
+%`
+}
+
+}
+)
+}
+)]
+}
+)]
+}
+),o.jsxs("div",{
+className:"space-y-2",children:[o.jsx("span",{
+className:"text-[9px] text-slate-500 font-mono uppercase tracking-wider block",children:"UNLOCKED ACHIEVEMENTS"
+}
+),b.length>0?o.jsx("div",{
+className:"grid grid-cols-2 gap-2",children:b.map((he,Ce)=>o.jsxs("div",{
+className:"bg-sky-50 border border-sky-100 px-3 py-2 rounded-xl flex items-center gap-2 text-xs text-slate-700 font-mono shadow-sm",children:[o.jsx(ti,{
+className:"w-3.5 h-3.5 text-sky-600"
+}
+),o.jsx("span",{
+className:"truncate",title:he,children:he
+}
+)]
+}
+,Ce))
+}
+):o.jsx("div",{
+className:"bg-slate-50 border border-dashed border-slate-300 rounded-xl p-3 text-center text-[10px] text-slate-400 font-mono leading-relaxed",children:"No achievements unlocked yet. Complete lessons to unlock badges."
+}
+)]
+}
+),o.jsxs("div",{
+className:"mt-auto pt-3 border-t border-slate-200 space-y-2",children:[o.jsx("span",{
+className:"text-[9px] text-slate-500 font-mono uppercase tracking-wider block",children:"GRADUATE STATUS"
+}
+),v?o.jsxs("button",{
+onClick:()=>St(!0),className:"w-full py-2.5 bg-gradient-to-r from-sky-600 to-indigo-600 text-white font-display font-bold text-xs rounded-xl hover:scale-[1.01] active:scale-99 transition-all cursor-pointer shadow-md uppercase tracking-wider flex items-center justify-center gap-1.5",children:[o.jsx("span",{
+children:"View Graduate Certificate"
+}
+),o.jsx("span",{
+children:"🎓"
+}
+)]
+}
+):o.jsxs("div",{
+className:"p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between text-xs font-mono text-slate-400",children:[o.jsxs("div",{
+className:"flex items-center gap-2",children:[o.jsx(Pr,{
+className:"w-3.5 h-3.5 text-slate-400"
+}
+),o.jsx("span",{
+children:"Graduate Certificate"
+}
+)]
+}
+),o.jsx("span",{
+className:"text-[10px] text-slate-400",children:"LOCKED"
+}
+)]
+}
+)]
+}
+)]
+}
+)
+}
+)
+}
+)]
+}
+)]
+}
+)
+}
+function n5({
+profile:a,xp:i,onAddXp:l
+}
+){
+const[c,d]=N.useState("overview"),[m,h]=N.useState(250),[g,y]=N.useState(""),[p,b]=N.useState(""),[v,S]=N.useState(!1),[A,j]=N.useState(""),[L,R]=N.useState(1420),[O,F]=N.useState(45),[W,G]=N.useState("DOG TAG THURSDAYS AND FRIDAYS ARE ACTIVE! GRIND EXERCISES IN THE SANDBOX. AIMING FOR THE GLOBAL PRESTIGE TOP 5!"),[se,ne]=N.useState(!1),[Q,Y]=N.useState(W),[le,Z]=N.useState(!1),[fe,ye]=N.useState(0),[Ne,We]=N.useState(0),[_e,_]=N.useState(null),[K,$]=N.useState(!1),[oe,xe]=N.useState([{
+id:"req1",name:"Cyber_Viper",xp:4120,role:"Student",avatar:"https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&q=80",message:"Hey guys! Level 4 React coder here. Looking for an active Friday Dog Tag squad!"
+}
+,{
+id:"req2",name:"BitSlinger",xp:2950,role:"AI Developer",avatar:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80",message:"Active learner, practicing Python everyday. Let me in to boost the weekly XP metrics!"
+}
+]),[C,P]=N.useState([{
+id:"leader1",name:"Master Cadet",role:"Leader",xpContributed:14500,dogTags:320,status:"online",avatar:"https://images.unsplash.com/photo-1628157582853-a796fa650a6a?auto=format&fit=crop&w=120&q=80",titleBadge:"Vidyoneer King"
+}
+,{
+id:"officer1",name:"Debugger_Luna",role:"Officer",xpContributed:9800,dogTags:210,status:"in assessment",avatar:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80",titleBadge:"No-Bug Splicer"
+}
+,{
+id:"active_user",name:`${
+a.name
+}
+ (YOU)`,role:"Elite Cadet",xpContributed:4500,dogTags:45,status:"online",avatar:a.avatar,titleBadge:"Cadet Recruit"
+}
+,{
+id:"member1",name:"Pixel_Paladin",role:"Elite Elder",xpContributed:6700,dogTags:180,status:"in sandbox",avatar:"https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=120&q=80"
+}
+,{
+id:"member2",name:"Async_Knight",role:"Cadet",xpContributed:2400,dogTags:75,status:"offline",avatar:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=120&q=80"
+}
+]),[J,ee]=N.useState([{
+id:"msg1",sender:"Master Cadet",role:"Leader",text:"Welcome to the Friday Tournament lads! Grind those dog tags so we can unlock the Custom Room card today!",timestamp:"10:15 AM",avatar:"https://images.unsplash.com/photo-1628157582853-a796fa650a6a?auto=format&fit=crop&w=120&q=80"
+}
+,{
+id:"msg2",sender:"Debugger_Luna",role:"Officer",text:"Finished the JavaScript Async module roadmap! Contributed +15 dog tags! 🚀",timestamp:"10:20 AM",avatar:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80"
+}
+,{
+id:"msg3",sender:"Pixel_Paladin",role:"Elite Elder",text:"Need some backup in the sandbox playground, has anyone solved the recursion challenge in Java?",timestamp:"10:25 AM",avatar:"https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=120&q=80"
+}
+]),[ce,pe]=N.useState(""),Me=N.useRef(null);
+N.useEffect(()=>{
+c==="chat"&&Me.current&&Me.current.scrollIntoView({
+behavior:"smooth"
+}
+)
+}
+,[J,c]);
+const Ze=I=>{
+const we={
+id:I.id,name:I.name,role:"Cadet",xpContributed:I.xp,dogTags:10,status:"online",avatar:I.avatar
+}
+;
+P(ze=>[...ze,we]),xe(ze=>ze.filter(St=>St.id!==I.id));
+const Oe={
+id:"sys_"+Math.random(),sender:"GUILD SYSTEM",role:"System",text:`🎉 USER '${
+I.name
+}
+' HAS BEEN INITIATED INTO THE GUILD BY SYSTEM ALGORITHMS! Welcome to the squad!`,timestamp:"Now",avatar:"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80"
+}
+;
+ee(ze=>[...ze,Oe])
+}
+,De=I=>{
+xe(we=>we.filter(Oe=>Oe.id!==I))
+}
+,kt=I=>{
+if(I.preventDefault(),!ce.trim())return;
+const we={
+id:"user_msg_"+Math.random(),sender:a.name,role:"Elite Cadet",text:ce,timestamp:"Just now",avatar:a.avatar
+}
+;
+ee(ze=>[...ze,we]);
+const Oe=ce;
+pe(""),setTimeout(()=>{
+const ze=["Ayyy! Let's go Cadet! 🔥 We are pushing hard for that tournament reward!","Double XP is activated. Sandbox grinding pays off! Keep pushing code!","Awesome! I'll team up with you in any sandbox lobby for DSA challenges.","Glad to have you active. Don't forget to run the Speed Trivia on the overview tab to get us those precious Friday Dog Tags!","Copy that, Commander! Level 4 Node API is deployable on standby limits!"],St=ze[Math.floor(Math.random()*ze.length)],is={
+id:"reply_msg_"+Math.random(),sender:"Master Cadet",role:"Leader",text:Qe(Oe,St),timestamp:"Just now",avatar:"https://images.unsplash.com/photo-1628157582853-a796fa650a6a?auto=format&fit=crop&w=120&q=80"
+}
+;
+ee(ot=>[...ot,is])
+}
+,1500)
+}
+,Qe=(I,we)=>I.toLowerCase().includes("hello")||I.toLowerCase().includes("hey")||I.toLowerCase().includes("hi")?"Well met! Grab some coffee and start writing code. Need help with some roadmaps tonight?":we,At=()=>{
+G(Q),ne(!1)
+}
+,at=[{
+q:"Which algorithm scheme resolves elements in sorted lists by dividing the search interval in half successively?",options:["Linear Search","Binary Search","Bubble Sort","Dijkstra Algorithm"],correct:"Binary Search",xpGained:50,tagsGained:10
+}
+,{
+q:"In relational database queries, which keyword is utilized to synthesize matching tuples across distinct tables?",options:["MERGE","CROSSOVER","JOIN","INTEGRATE"],correct:"JOIN",xpGained:50,tagsGained:10
+}
+,{
+q:"What design pattern focuses on creating a single class instance accessible globally throughout execution?",options:["Singleton","Observer","Factory","Decorator"],correct:"Singleton",xpGained:50,tagsGained:10
+}
+],ht=I=>{
+_(I)
+}
+,zt=()=>{
+_e&&(_e===at[fe].correct&&We(I=>I+1),fe+1<at.length?(ye(I=>I+1),_(null)):$(!0))
+}
+,Vt=()=>{
+const I=Ne*50,we=Ne*10;
+l(I),h(ze=>ze+Ne*15),R(ze=>ze+we),F(ze=>ze+we),P(ze=>ze.map(St=>St.id==="active_user"?{
+...St,xpContributed:St.xpContributed+I,dogTags:St.dogTags+we
+}
+:St)),Z(!1),ye(0),We(0),_(null),$(!1);
+const Oe={
+id:"sys_game_"+Math.random(),sender:"GUILD SYSTEM",role:"System",text:`🏆 ACTIVE CADET ${
+a.name
+}
+ completed the Speeds Trivia. Score: ${
+Ne
+}
+/3. Contributed +${
+we
+}
+ Friday Dog Tags to the Clan!`,timestamp:"Now",avatar:a.avatar
+}
+;
+ee(ze=>[...ze,Oe])
+}
+,Lt=(I,we)=>{
+if(m<we){
+alert("Insufficient Guild Coins! Complete more tasks and game trivia rounds to stack coins.");
+return
+}
+if(h(Oe=>Oe-we),I==="xpCard")S(!0),l(200),alert("Double XP Card successfully applied! +200 XP immediate stack applied.");
+else if(I==="roomCard"){
+const Oe="CUST-"+Math.floor(1e5+Math.random()*9e5);
+j(Oe),alert(`Room Card Unlocked! Custom Code: ${
+Oe
+}
+. You can now construct custom lobbies.`)
+}
+else I==="title"?(y("No-Bug Splicer"),P(Oe=>Oe.map(ze=>ze.id==="active_user"?{
+...ze,titleBadge:"No-Bug Splicer"
+}
+:ze)),alert("Legendary title tag unlocked! Display tag applied: 'No-Bug Splicer'.")):I==="glow"&&(b("ring-2 ring-cyan-400 animate-pulse shadow-[0_0_15px_rgba(0,163,255,0.6)]"),alert("Cyber Dragon Avatar frame successfully purchased! Wear it with code dominance."))
+}
+;
+return o.jsxs("div",{
+id:"guild_container",className:"flex flex-col lg:flex-row h-full w-full bg-slate-50 text-slate-800 overflow-hidden",children:[o.jsxs("div",{
+className:"flex-1 flex flex-col p-4 sm:p-6 overflow-y-auto space-y-6",children:[o.jsxs("div",{
+className:"relative rounded-2xl overflow-hidden border border-slate-200 bg-white p-6 shadow-sm",children:[o.jsx("div",{
+className:"absolute top-0 right-0 w-64 h-full bg-gradient-to-l from-sky-500/5 to-transparent pointer-events-none"
+}
+),o.jsx("div",{
+className:"absolute -top-12 -left-12 w-48 h-48 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"
+}
+),o.jsxs("div",{
+className:"relative z
