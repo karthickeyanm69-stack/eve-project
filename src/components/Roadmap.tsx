@@ -314,8 +314,8 @@ const getInteractiveChallenge = (nodeId: string, lesson: any, activeCourse: stri
       type: "predict_output",
       prompt: "Predict the final logged output of this program in the terminal:",
       code: code,
-      options: lesson.options,
-      correct: lesson.correct,
+      options: isPy ? ["5", "10", "15", "20"] : ["10", "20", "undefined", "ReferenceError"],
+      correct: "10",
       explanation: lesson.explanation
     };
   }
@@ -329,8 +329,8 @@ const getInteractiveChallenge = (nodeId: string, lesson: any, activeCourse: stri
         ? "def __init__(________, name):\n    self.name = name"
         : "________ function add(x, y) {\n    return await getResult();\n}",
       blankWord: isPy ? "self" : "async",
-      options: lesson.options,
-      correct: lesson.correct,
+      options: isPy ? ["self", "this", "init", "cls"] : ["async", "sync", "await", "defer"],
+      correct: isPy ? "self" : "async",
       explanation: lesson.explanation
     };
   }
@@ -347,7 +347,7 @@ const getInteractiveChallenge = (nodeId: string, lesson: any, activeCourse: stri
       segments: segments,
       correctIdx: errIdx,
       options: [],
-      correct: lesson.correct,
+      correct: isPy ? "[no_colon]" : "document.getElementByID",
       explanation: lesson.explanation
     };
   }
@@ -547,7 +547,8 @@ export default function Roadmap({
     const lesson = curriculum.lessons[selectedNode.id];
     if (!lesson) return;
 
-    if (userAnswer === lesson.correct) {
+    const challenge = getInteractiveChallenge(selectedNode.id, lesson, activeCourse);
+    if (userAnswer === challenge.correct) {
       setQuizStatus("correct");
       triggerConfetti();
 
@@ -1176,7 +1177,7 @@ export default function Roadmap({
         <div id="quiz_panel" className="lg:col-span-5 relative z-40 lg:sticky lg:top-6 h-fit">
           <AnimatePresence mode="wait">
             {selectedNode ? (
-              <motion.div
+<motion.div
                 key={selectedNode.id}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -1185,423 +1186,376 @@ export default function Roadmap({
               >
                 {selectedNode.type === "reading" ? (
                   // 📖 IMAGINATIVE INTERACTIVE READING SESSIONS UI
-                  <div className="flex-1 w-full h-full flex flex-col bg-white relative select-none">
+                  <div className="flex-1 w-full h-full flex flex-col bg-slate-950 relative select-none font-serif">
                     {/* Top Status Bar / Header */}
-                    <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-white shrink-0 shadow-sm">
+                    <div className="flex items-center justify-between px-6 py-3 border-b border-slate-800 bg-slate-900 text-slate-100 shrink-0 shadow-sm">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-sky-50 border border-sky-200 flex items-center justify-center">
-                          <BookOpen className="w-4 h-4 text-sky-600" />
+                        <div className="w-8 h-8 rounded-lg bg-sky-950 border border-sky-850 flex items-center justify-center">
+                          <BookOpen className="w-4 h-4 text-sky-400" />
                         </div>
                         <div>
-                          <span className="text-[10px] font-mono text-sky-600 uppercase tracking-widest font-bold block leading-none">
+                          <span className="text-[10px] font-mono text-sky-400 uppercase tracking-widest font-bold block leading-none">
                             {activeCourse.toUpperCase()} • READING SESSION
                           </span>
-                          <h3 className="text-sm font-display font-bold text-slate-800 mt-0.5">
+                          <h3 className="text-sm font-display font-bold text-white mt-0.5">
                             {selectedNode.title} — {selectedNode.subtitle}
                           </h3>
                         </div>
                       </div>
                       <button
                         onClick={handleClosePanel}
-                        className="flex items-center gap-1.5 text-slate-500 hover:text-slate-800 font-mono text-xs cursor-pointer border border-slate-200 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+                        className="flex items-center gap-1.5 text-slate-400 hover:text-white font-mono text-xs cursor-pointer border border-slate-700 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors"
                       >
                         ✕ Exit Session
                       </button>
                     </div>
 
-                    {/* Content Section with animated transitions */}
-                    <div className="flex-1 flex flex-col items-center justify-center p-6 overflow-y-auto bg-slate-50">
-                      <div className="w-full max-w-2xl bg-white border border-slate-200 shadow-lg rounded-3xl overflow-hidden flex flex-col min-h-[460px]">
-                        {/* Progress Bar */}
-                        {(() => {
-                          const lesson = curriculum.lessons[selectedNode.id];
-                          if (!lesson) return null;
-                          const slides = lesson.slides;
-                          const progress = ((currentSlide + 1) / slides.length) * 100;
-                          return (
-                            <div className="w-full bg-slate-100 h-1.5">
-                              <div
-                                className="bg-gradient-to-r from-sky-500 to-indigo-500 h-full transition-all duration-500"
-                                style={{ width: `${progress}%` }}
-                              />
-                            </div>
-                          );
-                        })()}
-
-                        {/* Animated Slide Content Area */}
-                        <div className="flex-1 p-8 flex flex-col justify-between overflow-hidden">
+                    {/* Content Section with animated chalkboard */}
+                    <div className="flex-1 flex items-center justify-center p-4 overflow-hidden relative bg-slate-950">
+                      <div className="w-full max-w-[850px] aspect-square relative shadow-[0_0_50px_rgba(0,0,0,0.8)] border-4 border-amber-900/60 rounded-2xl overflow-hidden bg-[url('/reading_bg.jpg')] bg-cover bg-center">
+                        {/* Chalkboard content overlay */}
+                        <div className="absolute top-[12%] left-[39%] w-[55%] h-[73%] p-4 select-text text-left flex flex-col justify-between">
                           <AnimatePresence mode="wait">
                             <motion.div
                               key={currentSlide}
-                              initial={{ opacity: 0, x: 20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              exit={{ opacity: 0, x: -20 }}
-                              transition={{ duration: 0.25 }}
-                              className="space-y-6 flex-1 flex flex-col justify-between"
+                              initial={{ opacity: 0, scale: 0.98 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0, scale: 0.98 }}
+                              transition={{ duration: 0.2 }}
+                              className="h-full"
                             >
                               {(() => {
                                 const lesson = curriculum.lessons[selectedNode.id];
-                                if (!lesson) return <div className="text-slate-550 font-mono text-sm">Lesson data not found.</div>;
+                                if (!lesson) return <div className="text-slate-350 font-mono text-xs">Lesson data not found.</div>;
                                 const slides = lesson.slides;
 
-                                if (currentSlide < slides.length - 1) {
-                                  // Regular Slide rendering
-                                  return (
-                                    <div className="space-y-6 flex-1 flex flex-col justify-center">
-                                      <div className="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold">
-                                        Slide {currentSlide + 1} of {slides.length}
-                                      </div>
-                                      <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-sans font-medium text-left">
-                                        {slides[currentSlide]}
-                                      </p>
-                                    </div>
-                                  );
-                                }
-
-                                // Final Slide - Interactive Game Section
-                                const challenge = getInteractiveChallenge(selectedNode.id, lesson, activeCourse);
-
                                 return (
-                                  <div className="space-y-6 flex-1 text-left">
-                                    <div className="flex justify-between items-center">
-                                      <div className="text-[10px] font-mono text-indigo-600 uppercase tracking-widest font-bold">
-                                        Slide {currentSlide + 1} of {slides.length} • ACTIVE CHALLENGE
-                                      </div>
-                                      <span className="text-[9px] font-mono bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-full border border-indigo-200 uppercase font-black">
-                                        {challenge.type.replace("_", " ")}
-                                      </span>
-                                    </div>
-
-                                    {/* Challenge prompt instructions */}
-                                    <p className="text-sm font-sans font-semibold text-slate-800 leading-snug">
-                                      {challenge.prompt}
-                                    </p>
-
-                                    {/* RENDER THE CORRESPONDING GAME LAYOUT */}
-                                    {(() => {
-                                      if (challenge.type === "drag_drop") {
-                                        return (
-                                          <div className="space-y-6">
-                                            {/* Word Token slot sentence */}
-                                            <div className="bg-slate-50 border border-slate-200 p-6 rounded-2xl font-mono text-xs sm:text-sm text-slate-800 flex flex-wrap items-center gap-2 shadow-inner leading-relaxed">
-                                              {challenge.blankSentence?.split("________").map((part, pIdx, pArr) => (
-                                                <React.Fragment key={pIdx}>
-                                                  <span>{part}</span>
-                                                  {pIdx < pArr.length - 1 && (
-                                                    userAnswer ? (
-                                                      <button
-                                                        onClick={() => {
-                                                          setUserAnswer("");
-                                                          setQuizStatus("idle");
-                                                        }}
-                                                        className="px-2.5 py-1 bg-sky-500 text-white font-bold rounded-lg border border-sky-650 shadow-md transition-all active:scale-95 cursor-pointer font-mono"
-                                                      >
-                                                        {userAnswer}
-                                                      </button>
-                                                    ) : (
-                                                      <span className="w-24 h-7 border-2 border-dashed border-sky-400 rounded-lg bg-sky-50/50 flex items-center justify-center animate-pulse" />
-                                                    )
-                                                  )}
-                                                </React.Fragment>
-                                              ))}
-                                            </div>
-
-                                            {/* Choice tokens */}
-                                            <div className="flex flex-wrap gap-2.5 justify-center pt-2">
-                                              {challenge.options.map((opt, idx) => {
-                                                const isUsed = userAnswer === opt;
-                                                return (
-                                                  <button
-                                                    key={idx}
-                                                    disabled={quizStatus === "correct" || isUsed}
-                                                    onClick={() => {
-                                                      setUserAnswer(opt);
-                                                      setQuizStatus("idle");
-                                                    }}
-                                                    className="px-4 py-2.5 bg-white border border-slate-250 text-slate-750 hover:bg-slate-50 font-mono text-xs rounded-xl shadow-sm cursor-pointer transition-all active:scale-95 disabled:opacity-30 disabled:scale-100 font-bold"
-                                                  >
-                                                    {opt}
-                                                  </button>
-                                                );
-                                              })}
-                                            </div>
+                                  <div className="flex flex-col justify-between h-full space-y-3">
+                                    {/* 1. TOP MAIN CONTENT AREA (SLIDE TEXT OR CHALLENGE) */}
+                                    <div className="flex-1 overflow-y-auto scrollbar-thin select-text min-h-[90px] pr-1">
+                                      {currentSlide < slides.length - 1 ? (
+                                        // Regular Slide rendering
+                                        <div className="space-y-3 select-text">
+                                          <div className="flex items-center">
+                                            <span className="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">
+                                              Slide {currentSlide + 1} of {slides.length}
+                                            </span>
                                           </div>
-                                        );
-                                      }
-
-                                      if (challenge.type === "true_false") {
-                                        return (
-                                          <div className="grid grid-cols-2 gap-4 pt-2">
-                                            {challenge.options.map((opt) => {
-                                              const isSelected = userAnswer === opt;
-                                              const isTrue = opt === "True";
-                                              return (
-                                                <button
-                                                  key={opt}
-                                                  disabled={quizStatus === "correct"}
-                                                  onClick={() => {
-                                                    setUserAnswer(opt);
-                                                    setQuizStatus("idle");
-                                                  }}
-                                                  className={`p-6 rounded-2xl border text-center transition-all cursor-pointer ${
-                                                    isSelected
-                                                      ? isTrue
-                                                        ? "bg-emerald-500 border-emerald-600 text-white shadow-lg shadow-emerald-500/20 font-bold"
-                                                        : "bg-red-500 border-red-600 text-white shadow-lg shadow-red-500/20 font-bold"
-                                                      : isTrue
-                                                        ? "bg-slate-50 border-slate-200 text-slate-700 hover:bg-emerald-50 hover:border-emerald-300 hover:text-emerald-700"
-                                                        : "bg-slate-50 border-slate-200 text-slate-700 hover:bg-red-50 hover:border-red-300 hover:text-red-700"
-                                                  }`}
-                                                >
-                                                  <span className="text-lg font-bold font-sans uppercase tracking-wider block">
-                                                    {isTrue ? "👍 True" : "👎 False"}
-                                                  </span>
-                                                </button>
-                                              );
-                                            })}
-                                          </div>
-                                        );
-                                      }
-
-                                      if (challenge.type === "rearrange") {
-                                        // Auto initialize rearrange order if empty
-                                        if (sequenceBlocks.length === 0 && challenge.lines) {
-                                          const shuffled = [...challenge.lines].sort(() => Math.random() - 0.5);
-                                          setSequenceBlocks(shuffled);
-                                          setUserAnswer(shuffled.join("\n"));
-                                        }
-
-                                        return (
-                                          <div className="space-y-2 pt-2">
-                                            {sequenceBlocks.map((line, idx) => (
-                                              <div
-                                                key={idx}
-                                                className="bg-slate-900 border border-slate-800 text-slate-200 p-3 rounded-xl font-mono text-xs flex items-center justify-between shadow-inner"
-                                              >
-                                                <span>{line}</span>
-                                                <div className="flex gap-1.5 shrink-0">
-                                                  <button
-                                                    disabled={idx === 0 || quizStatus === "correct"}
-                                                    onClick={() => {
-                                                      const copy = [...sequenceBlocks];
-                                                      [copy[idx], copy[idx - 1]] = [copy[idx - 1], copy[idx]];
-                                                      setSequenceBlocks(copy);
-                                                      setUserAnswer(copy.join("\n"));
-                                                      setQuizStatus("idle");
-                                                    }}
-                                                    className="p-1.5 bg-slate-800 hover:bg-slate-700 rounded text-slate-400 disabled:opacity-30 cursor-pointer font-sans text-[10px]"
-                                                    title="Move Up"
-                                                  >
-                                                    ▲
-                                                  </button>
-                                                  <button
-                                                    disabled={idx === sequenceBlocks.length - 1 || quizStatus === "correct"}
-                                                    onClick={() => {
-                                                      const copy = [...sequenceBlocks];
-                                                      [copy[idx], copy[idx + 1]] = [copy[idx + 1], copy[idx]];
-                                                      setSequenceBlocks(copy);
-                                                      setUserAnswer(copy.join("\n"));
-                                                      setQuizStatus("idle");
-                                                    }}
-                                                    className="p-1.5 bg-slate-800 hover:bg-slate-700 rounded text-slate-400 disabled:opacity-30 cursor-pointer font-sans text-[10px]"
-                                                    title="Move Down"
-                                                  >
-                                                    ▼
-                                                  </button>
-                                                </div>
-                                              </div>
-                                            ))}
-                                          </div>
-                                        );
-                                      }
-
-                                      if (challenge.type === "predict_output") {
-                                        return (
-                                          <div className="space-y-4">
-                                            {/* Command Line Console Display */}
-                                            <div className="bg-[#0f172a] border border-slate-800 p-4 rounded-xl shadow-inner font-mono text-[11px] leading-relaxed text-slate-350 space-y-3">
-                                              <div className="flex items-center gap-1 border-b border-slate-800/80 pb-1.5 text-[9px] text-slate-500">
-                                                <span className="w-2 h-2 rounded-full bg-red-500/80" />
-                                                <span className="w-2 h-2 rounded-full bg-yellow-500/80" />
-                                                <span className="w-2 h-2 rounded-full bg-emerald-500/80" />
-                                                <span className="ml-1 uppercase tracking-wider font-bold">UNAI TERMINAL</span>
-                                              </div>
-                                              <pre className="text-emerald-400 whitespace-pre-wrap select-all font-bold">
-                                                {challenge.code}
-                                              </pre>
-                                            </div>
-
-                                            {/* MCQ selection grid */}
-                                            <div className="grid grid-cols-2 gap-2 pt-1">
-                                              {challenge.options.map((opt, idx) => {
-                                                const isSelected = userAnswer === opt;
-                                                return (
-                                                  <button
-                                                    key={idx}
-                                                    disabled={quizStatus === "correct"}
-                                                    onClick={() => {
-                                                      setUserAnswer(opt);
-                                                      setQuizStatus("idle");
-                                                    }}
-                                                    className={`p-3 rounded-xl text-left text-xs font-mono border transition-all flex items-center gap-2 cursor-pointer ${
-                                                      isSelected
-                                                        ? "bg-indigo-500 border-indigo-650 text-white font-bold"
-                                                        : "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100"
-                                                    }`}
-                                                  >
-                                                    <span className={`text-[9px] px-1 rounded font-mono ${isSelected ? 'bg-white text-indigo-600' : 'bg-slate-200'}`}>
-                                                      {idx + 1}
-                                                    </span>
-                                                    <span>{opt}</span>
-                                                  </button>
-                                                );
-                                              })}
-                                            </div>
-                                          </div>
-                                        );
-                                      }
-
-                                      if (challenge.type === "error_spotting") {
-                                        return (
-                                          <div className="space-y-4">
-                                            {/* Code blocks split into tokens */}
-                                            <div className="bg-[#0f172a] border border-slate-800 p-6 rounded-xl font-mono text-xs sm:text-sm text-slate-200 flex flex-wrap gap-1 leading-relaxed shadow-inner">
-                                              {challenge.segments?.map((seg, idx) => {
-                                                const isClicked = selectedHotspot === idx;
-                                                return (
-                                                  <span
-                                                    key={idx}
-                                                    onClick={() => {
-                                                      if (quizStatus !== "correct") {
-                                                        setSelectedHotspot(idx);
-                                                        setUserAnswer(idx === challenge.correctIdx ? lesson.correct : "incorrect");
-                                                        setQuizStatus("idle");
-                                                      }
-                                                    }}
-                                                    className={`px-1 rounded cursor-pointer transition-all ${
-                                                      isClicked
-                                                        ? "bg-amber-500 text-slate-950 font-black border border-amber-400"
-                                                        : "hover:bg-slate-800 text-slate-350"
-                                                    }`}
-                                                  >
-                                                    {seg}
-                                                  </span>
-                                                );
-                                              })}
-                                            </div>
-                                            <div className="text-[10px] text-slate-400 font-mono italic">
-                                              Tip: Click on the token segment above containing the syntax or logic bug.
-                                            </div>
-                                          </div>
-                                        );
-                                      }
-
-                                      // Standard Choose Syntax / MCQ fallback
-                                      return (
-                                        <div className="space-y-2">
-                                          {challenge.options.map((opt, idx) => {
-                                            const isSelected = userAnswer === opt;
-                                            return (
-                                              <button
-                                                key={idx}
-                                                disabled={quizStatus === "correct"}
-                                                onClick={() => {
-                                                  setUserAnswer(opt);
-                                                  setQuizStatus("idle");
-                                                }}
-                                                className={`w-full p-3 rounded-xl text-left text-xs font-sans border transition-all flex items-center gap-3 cursor-pointer ${
-                                                  isSelected
-                                                    ? "bg-sky-500 border-sky-650 text-white font-bold"
-                                                    : "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100"
-                                                }`}
-                                              >
-                                                <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono font-bold ${
-                                                  isSelected
-                                                    ? "bg-white text-sky-600"
-                                                    : "bg-slate-200 text-slate-700"
-                                                }`}>
-                                                  {String.fromCharCode(65 + idx)}
-                                                </span>
-                                                <span className="leading-snug">{opt}</span>
-                                              </button>
-                                            );
-                                          })}
+                                          <p className="text-xs sm:text-sm md:text-base text-slate-100 leading-relaxed font-sans font-medium">
+                                            {slides[currentSlide]}
+                                          </p>
                                         </div>
-                                      );
-                                    })()}
+                                      ) : (
+                                        // Final Challenge rendering
+                                        (() => {
+                                          const challenge = getInteractiveChallenge(selectedNode.id, lesson, activeCourse);
+                                          return (
+                                            <div className="space-y-2 select-text">
+                                              <div className="flex justify-between items-center">
+                                                <span className="bg-blue-600 text-white text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">
+                                                  Slide {currentSlide + 1} of {slides.length} • CHALLENGE
+                                                </span>
+                                                <span className="text-[7.5px] font-mono bg-sky-955/80 text-sky-300 px-1.5 py-0.5 rounded-full border border-sky-850 uppercase font-black">
+                                                  {challenge.type.replace("_", " ")}
+                                                </span>
+                                              </div>
 
-                                    {/* Question Feedback Box */}
-                                    {quizStatus !== "idle" && (
-                                      <div className={`p-4 rounded-xl text-xs border leading-relaxed ${
-                                        quizStatus === "correct"
-                                          ? "bg-emerald-50 border-emerald-250 text-emerald-950"
-                                          : "bg-red-50 border-red-250 text-red-950"
-                                      }`}>
-                                        <span className="font-bold block uppercase tracking-wider">
-                                          {quizStatus === "correct" ? "🎉 CORRECT ANSWER!" : "❌ CALIBRATION ERROR"}
-                                        </span>
-                                        <p className="mt-1 font-sans font-medium">{challenge.explanation}</p>
-                                      </div>
-                                    )}
-                                  </div>
-                                );
-                              })()}
+                                              <p className="text-[10.5px] font-sans font-semibold text-slate-100 leading-snug">
+                                                {challenge.prompt}
+                                              </p>
 
-                              {/* Navigation Buttons inside slide footer */}
-                              {(() => {
-                                const lesson = curriculum.lessons[selectedNode.id];
-                                if (!lesson) return null;
-                                const slides = lesson.slides;
+                                              <div className="py-1">
+                                                {/* GAME LAYOUT */}
+                                                {(() => {
+                                                  if (challenge.type === "drag_drop") {
+                                                    return (
+                                                      <div className="space-y-2">
+                                                        <div className="bg-slate-900/60 border border-slate-700/50 p-2 rounded-lg font-mono text-[9px] sm:text-[10px] text-slate-200 flex flex-wrap items-center gap-1 leading-relaxed select-text">
+                                                          {challenge.blankSentence?.split("________").map((part, pIdx, pArr) => (
+                                                            <React.Fragment key={pIdx}>
+                                                              <span>{part}</span>
+                                                              {pIdx < pArr.length - 1 && (
+                                                                userAnswer ? (
+                                                                  <button
+                                                                    onClick={() => {
+                                                                      setUserAnswer("");
+                                                                      setQuizStatus("idle");
+                                                                    }}
+                                                                    className="px-1.5 py-0.5 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded shadow transition-all active:scale-95 cursor-pointer font-mono text-[8px] border border-sky-500"
+                                                                  >
+                                                                    {userAnswer}
+                                                                  </button>
+                                                                ) : (
+                                                                  <span className="w-12 h-4 border border-dashed border-sky-400 rounded bg-sky-950/40 flex items-center justify-center animate-pulse" />
+                                                                )
+                                                              )}
+                                                            </React.Fragment>
+                                                          ))}
+                                                        </div>
+                                                        <div className="flex flex-wrap gap-1 justify-center">
+                                                          {challenge.options.map((opt, idx) => (
+                                                            <button
+                                                              key={idx}
+                                                              disabled={quizStatus === "correct" || userAnswer === opt}
+                                                              onClick={() => {
+                                                                setUserAnswer(opt);
+                                                                setQuizStatus("idle");
+                                                              }}
+                                                              className="px-2 py-0.5 bg-slate-900/80 border border-slate-700 text-slate-200 hover:bg-slate-800 font-mono text-[9px] rounded-lg cursor-pointer transition-all active:scale-95 disabled:opacity-30 font-bold"
+                                                            >
+                                                              {opt}
+                                                            </button>
+                                                          ))}
+                                                        </div>
+                                                      </div>
+                                                    );
+                                                  }
 
-                                return (
-                                  <div className="mt-8 pt-6 border-t border-slate-150 flex items-center justify-between">
-                                    <button
-                                      disabled={currentSlide === 0}
-                                      onClick={() => {
-                                        setCurrentSlide(prev => prev - 1);
-                                        if (quizStatus !== "correct") {
-                                          setUserAnswer("");
-                                          setQuizStatus("idle");
-                                          setSequenceBlocks([]);
-                                          setSelectedHotspot(null);
-                                        }
-                                      }}
-                                      className="px-4 py-2 bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-xs font-mono flex items-center gap-1 cursor-pointer"
-                                    >
-                                      <ChevronLeft className="w-4 h-4" /> Back
-                                    </button>
+                                                  if (challenge.type === "true_false") {
+                                                    return (
+                                                      <div className="grid grid-cols-2 gap-2">
+                                                        {challenge.options.map((opt) => {
+                                                          const isSelected = userAnswer === opt;
+                                                          const isTrue = opt === "True";
+                                                          return (
+                                                            <button
+                                                              key={opt}
+                                                              disabled={quizStatus === "correct"}
+                                                              onClick={() => {
+                                                                setUserAnswer(opt);
+                                                                setQuizStatus("idle");
+                                                              }}
+                                                              className={`py-1.5 rounded-lg border text-center transition-all cursor-pointer ${
+                                                                isSelected
+                                                                  ? isTrue
+                                                                    ? "bg-emerald-700 border-emerald-600 text-white shadow-lg font-bold text-[9px]"
+                                                                    : "bg-red-700 border-red-600 text-white shadow-lg font-bold text-[9px]"
+                                                                  : isTrue
+                                                                    ? "bg-slate-900/60 border-slate-700 text-slate-200 hover:bg-emerald-950 hover:border-emerald-800 text-[9px] hover:text-emerald-300"
+                                                                    : "bg-slate-900/60 border-slate-700 text-slate-200 hover:bg-red-950 hover:border-red-800 text-[9px] hover:text-red-300"
+                                                              }`}
+                                                            >
+                                                              {isTrue ? "👍 True" : "👎 False"}
+                                                            </button>
+                                                          );
+                                                        })}
+                                                      </div>
+                                                    );
+                                                  }
 
-                                    {currentSlide < slides.length - 1 ? (
+                                                  if (challenge.type === "rearrange") {
+                                                    if (sequenceBlocks.length === 0 && challenge.lines) {
+                                                      const shuffled = [...challenge.lines].sort(() => Math.random() - 0.5);
+                                                      setSequenceBlocks(shuffled);
+                                                      setUserAnswer(shuffled.join("\n"));
+                                                      setQuizStatus("idle");
+                                                    }
+                                                    return (
+                                                      <div className="space-y-1">
+                                                        {sequenceBlocks.map((line, idx) => (
+                                                          <div
+                                                            key={idx}
+                                                            className="bg-slate-900/80 border border-slate-700/60 text-slate-200 px-2 py-1 rounded-lg font-mono text-[9px] flex items-center justify-between shadow-inner"
+                                                          >
+                                                            <span className="truncate select-text">{line}</span>
+                                                            <div className="flex gap-1 shrink-0 ml-1.5">
+                                                              <button
+                                                                disabled={idx === 0 || quizStatus === "correct"}
+                                                                onClick={() => {
+                                                                  const copy = [...sequenceBlocks];
+                                                                  [copy[idx], copy[idx - 1]] = [copy[idx - 1], copy[idx]];
+                                                                  setSequenceBlocks(copy);
+                                                                  setUserAnswer(copy.join("\n"));
+                                                                  setQuizStatus("idle");
+                                                                }}
+                                                                className="p-0.5 bg-slate-800 hover:bg-slate-700 rounded text-slate-400 disabled:opacity-30 cursor-pointer text-[7px]"
+                                                              >
+                                                                ▲
+                                                              </button>
+                                                              <button
+                                                                disabled={idx === sequenceBlocks.length - 1 || quizStatus === "correct"}
+                                                                onClick={() => {
+                                                                  const copy = [...sequenceBlocks];
+                                                                  [copy[idx], copy[idx + 1]] = [copy[idx + 1], copy[idx]];
+                                                                  setSequenceBlocks(copy);
+                                                                  setUserAnswer(copy.join("\n"));
+                                                                  setQuizStatus("idle");
+                                                                }}
+                                                                className="p-0.5 bg-slate-800 hover:bg-slate-700 rounded text-slate-400 disabled:opacity-30 cursor-pointer text-[7px]"
+                                                              >
+                                                                ▼
+                                                              </button>
+                                                            </div>
+                                                          </div>
+                                                        ))}
+                                                      </div>
+                                                    );
+                                                  }
+
+                                                  if (challenge.type === "predict_output") {
+                                                    return (
+                                                      <div className="space-y-1.5">
+                                                        <div className="bg-[#020617]/90 border border-slate-800 p-2 rounded shadow-inner font-mono text-[8px] sm:text-[9px] leading-relaxed text-slate-350">
+                                                          <pre className="text-emerald-400 whitespace-pre-wrap select-all font-bold">
+                                                            {challenge.code}
+                                                          </pre>
+                                                        </div>
+                                                        <div className="grid grid-cols-2 gap-1">
+                                                          {challenge.options.map((opt, idx) => {
+                                                            const isSelected = userAnswer === opt;
+                                                            return (
+                                                              <button
+                                                                key={idx}
+                                                                disabled={quizStatus === "correct"}
+                                                                onClick={() => {
+                                                                  setUserAnswer(opt);
+                                                                  setQuizStatus("idle");
+                                                                }}
+                                                                className={`p-1.5 rounded-lg text-left text-[8.5px] font-mono border transition-all flex items-center gap-1 cursor-pointer ${
+                                                                  isSelected
+                                                                    ? "bg-sky-700 border-sky-600 text-white font-bold"
+                                                                    : "bg-slate-900/60 border-slate-700 text-slate-350 hover:bg-slate-800"
+                                                                }`}
+                                                              >
+                                                                <span className={`text-[7px] px-1 rounded font-mono ${isSelected ? 'bg-white text-sky-700 font-bold' : 'bg-slate-800'}`}>
+                                                                  {idx + 1}
+                                                                </span>
+                                                                <span className="truncate">{opt}</span>
+                                                              </button>
+                                                            );
+                                                          })}
+                                                        </div>
+                                                      </div>
+                                                    );
+                                                  }
+
+                                                  if (challenge.type === "error_spotting") {
+                                                    return (
+                                                      <div className="bg-[#020617]/90 border border-slate-800 p-2 rounded font-mono text-[9px] text-slate-200 flex flex-wrap gap-1 leading-relaxed shadow-inner select-text">
+                                                        {challenge.segments?.map((seg, idx) => (
+                                                          <span
+                                                            key={idx}
+                                                            onClick={() => {
+                                                              if (quizStatus !== "correct") {
+                                                                setSelectedHotspot(idx);
+                                                                setUserAnswer(idx === challenge.correctIdx ? challenge.correct : "incorrect");
+                                                                setQuizStatus("idle");
+                                                              }
+                                                            }}
+                                                            className={`px-0.5 rounded cursor-pointer transition-all ${
+                                                              selectedHotspot === idx
+                                                                ? "bg-amber-600 text-white font-black border border-amber-500"
+                                                                : "hover:bg-slate-800 text-slate-350"
+                                                            }`}
+                                                          >
+                                                            {seg}
+                                                          </span>
+                                                        ))}
+                                                      </div>
+                                                    );
+                                                  }
+
+                                                  return (
+                                                    <div className="space-y-1">
+                                                      {challenge.options.map((opt, idx) => {
+                                                        const isSelected = userAnswer === opt;
+                                                        return (
+                                                          <button
+                                                            key={idx}
+                                                            disabled={quizStatus === "correct"}
+                                                            onClick={() => {
+                                                              setUserAnswer(opt);
+                                                              setQuizStatus("idle");
+                                                            }}
+                                                            className={`w-full p-1.5 rounded-lg text-left text-[9px] border transition-all flex items-center gap-1.5 cursor-pointer ${
+                                                              isSelected
+                                                                ? "bg-sky-700 border-sky-600 text-white font-bold"
+                                                                : "bg-slate-900/60 border-slate-700 text-slate-200 hover:bg-slate-800"
+                                                            }`}
+                                                          >
+                                                            <span className={`text-[7px] px-1 rounded font-mono font-bold ${isSelected ? "bg-white text-sky-750 font-bold" : "bg-slate-800 text-slate-400"}`}>
+                                                              {String.fromCharCode(65 + idx)}
+                                                            </span>
+                                                            <span className="truncate" title={opt}>{opt}</span>
+                                                          </button>
+                                                        );
+                                                      })}
+                                                    </div>
+                                                  );
+                                                })()}
+                                              </div>
+
+                                              {/* Verification feedback info box */}
+                                              {quizStatus !== "idle" && (
+                                                <div className={`p-2 rounded border leading-snug text-[8.5px] ${
+                                                  quizStatus === "correct" ? "bg-emerald-955/80 border-emerald-800 text-emerald-100" : "bg-red-955/80 border-red-800 text-red-100"
+                                                }`}>
+                                                  <span className="font-bold block uppercase text-[7.5px]">
+                                                    {quizStatus === "correct" ? "🎉 CORRECT!" : "❌ STUDY SLIDES"}
+                                                  </span>
+                                                  <p className="mt-0.5 font-sans font-medium text-[8px] leading-tight">{challenge.explanation}</p>
+                                                </div>
+                                              )}
+                                            </div>
+                                          );
+                                        })()
+                                      )}
+                                    </div>
+
+                                    {/* 2. BOTTOM BUTTONS AREA (PREVIOUS & NEXT BUTTONS) */}
+                                    <div className="pt-2 border-t border-slate-700/40 flex items-center justify-between shrink-0 font-mono mt-auto">
                                       <button
+                                        disabled={currentSlide === 0}
                                         onClick={() => {
-                                          setCurrentSlide(prev => prev + 1);
-                                          setUserAnswer("");
-                                          setQuizStatus("idle");
-                                          setSequenceBlocks([]);
-                                          setSelectedHotspot(null);
+                                          setCurrentSlide(prev => prev - 1);
+                                          if (quizStatus !== "correct") {
+                                            setUserAnswer("");
+                                            setQuizStatus("idle");
+                                            setSequenceBlocks([]);
+                                            setSelectedHotspot(null);
+                                          }
                                         }}
-                                        className="px-4 py-2 bg-sky-500 border border-sky-650 text-white hover:bg-sky-600 rounded-lg text-xs font-mono flex items-center gap-1 font-bold cursor-pointer"
+                                        className="px-2.5 py-1 bg-slate-900/90 border border-slate-700 text-slate-300 hover:bg-slate-800 disabled:opacity-20 disabled:cursor-not-allowed rounded text-[10px] flex items-center gap-1 cursor-pointer shadow-sm"
                                       >
-                                        Next <ChevronRight className="w-4 h-4" />
+                                        <ChevronLeft className="w-3 h-3" /> Back
                                       </button>
-                                    ) : (
-                                      quizStatus === "correct" ? (
+
+                                      <span className="text-[10px] text-slate-350 tracking-wider">
+                                        {currentSlide + 1} / {slides.length}
+                                      </span>
+
+                                      {currentSlide < slides.length - 1 ? (
                                         <button
-                                          onClick={handleClosePanel}
-                                          className="px-4 py-2 bg-emerald-600 text-white font-bold text-xs rounded-lg hover:bg-emerald-700 transition-all uppercase tracking-wider cursor-pointer"
+                                          onClick={() => {
+                                            setCurrentSlide(prev => prev + 1);
+                                            setUserAnswer("");
+                                            setQuizStatus("idle");
+                                            setSequenceBlocks([]);
+                                            setSelectedHotspot(null);
+                                          }}
+                                          className="px-3 py-1 bg-sky-600 hover:bg-sky-500 text-white rounded text-[10px] flex items-center gap-1 font-bold cursor-pointer shadow-sm border border-sky-500"
                                         >
-                                          Complete Session
+                                          Next <ChevronRight className="w-3 h-3" />
                                         </button>
                                       ) : (
-                                        <button
-                                          disabled={!userAnswer}
-                                          onClick={handleVerifyReadingAnswer}
-                                          className="px-5 py-2 bg-sky-500 text-white font-bold text-xs rounded-lg hover:bg-sky-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all uppercase tracking-wider cursor-pointer flex items-center gap-1.5"
-                                        >
-                                          Verify Answer <Check className="w-3.5 h-3.5" />
-                                        </button>
-                                      )
-                                    )}
+                                        quizStatus === "correct" ? (
+                                          <button
+                                            onClick={handleClosePanel}
+                                            className="px-3 py-1 bg-emerald-600 text-white font-bold text-[10px] rounded hover:bg-emerald-700 transition-all uppercase tracking-wider cursor-pointer shadow-sm border border-emerald-500"
+                                          >
+                                            Complete
+                                          </button>
+                                        ) : (
+                                          <button
+                                            disabled={!userAnswer}
+                                            onClick={handleVerifyReadingAnswer}
+                                            className="px-3.5 py-1 bg-sky-600 text-white font-bold text-[10px] rounded hover:bg-sky-500 disabled:opacity-40 disabled:cursor-not-allowed transition-all uppercase tracking-wider cursor-pointer flex items-center gap-1 border border-sky-550 shadow-sm"
+                                          >
+                                            Verify <Check className="w-3 h-3" />
+                                          </button>
+                                        )
+                                      )}
+                                    </div>
                                   </div>
                                 );
                               })()}
@@ -1612,45 +1566,207 @@ export default function Roadmap({
                     </div>
                   </div>
                 ) : (
-                  <>
-                    {/* Top accent bar */}
-                    <div className={`h-1 w-full shrink-0 ${quizStatus === "correct" || testPassed ? "bg-emerald-500" : quizStatus === "incorrect" ? "bg-red-500" : "bg-sky-500"}`} />
-
-                    {/* Full-screen header */}
-                    <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-white shrink-0 shadow-sm">
+                  // 🛡️ IMAGINATIVE INTERACTIVE TEST / FINAL SESSIONS UI
+                  <div className="flex-1 w-full h-full flex flex-col bg-slate-950 relative select-none">
+                    {/* Top Status Bar / Header */}
+                    <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-slate-900 text-slate-100 shrink-0 shadow-sm">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-sky-50 border border-sky-200 flex items-center justify-center">
-                          <BookOpen className="w-4 h-4 text-sky-600" />
+                        <div className="w-8 h-8 rounded-lg bg-purple-950 border border-purple-800 flex items-center justify-center">
+                          <Award className="w-4 h-4 text-purple-400" />
                         </div>
                         <div>
-                          <span className="text-[10px] font-mono text-sky-600 uppercase tracking-widest font-bold block leading-none">
-                            {activeCourse.toUpperCase()} • {selectedNode.type.toUpperCase()}
+                          <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest font-bold block leading-none">
+                            {activeCourse.toUpperCase()} • {selectedNode.type.toUpperCase()} SESSION
                           </span>
-                          <h3 className="text-sm font-display font-bold text-slate-800 mt-0.5">
+                          <h3 className="text-sm font-display font-bold text-white mt-0.5">
                             {selectedNode.title} — {selectedNode.subtitle}
                           </h3>
                         </div>
                       </div>
                       <button
                         onClick={handleClosePanel}
-                        className="flex items-center gap-1.5 text-slate-500 hover:text-slate-800 font-mono text-xs cursor-pointer border border-slate-200 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+                        className="flex items-center gap-1.5 text-slate-400 hover:text-white font-mono text-xs cursor-pointer border border-slate-700 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors"
                       >
                         ✕ Exit Session
                       </button>
                     </div>
 
-                    {/* Scrollable content area */}
-                    <div className="flex-1 overflow-y-auto">
-                      <div className="max-w-3xl mx-auto px-6 py-8 text-left">
-                        <p className="text-xs text-slate-500 mb-6 font-sans">
-                          {selectedNode.description}
-                        </p>
-                        <div className="h-px bg-slate-100 mb-6" />
+                    {/* Scrollable content area with background wrapper */}
+                    <div className="flex-1 flex items-center justify-center p-4 overflow-y-auto bg-slate-950">
+                      <div className="w-full max-w-[850px] aspect-square relative shadow-[0_0_50px_rgba(0,0,0,0.8)] border-4 border-purple-900/60 rounded-2xl overflow-hidden bg-[url('/test_bg.jpg')] bg-cover bg-center">
+                        
+                        {(() => {
+                          const questions = activeTestQuestions.length > 0
+                            ? activeTestQuestions
+                            : (selectedNode.type === "final"
+                              ? curriculum.finalQuestions
+                              : curriculum.checkpoints[selectedNode.id]?.questions) || [];
 
-                        {/* ... existing Test / Final components here ... */}
+                          // CASE 1: Test has not started yet (Intro Screen)
+                          if (!testActive) {
+                            return (
+                              <>
+                                {/* Top Scroll: Title & Details */}
+                                <div className="absolute top-[10%] left-[26%] w-[48%] h-[25%] flex flex-col justify-center px-6 text-center overflow-y-auto scrollbar-thin select-text text-slate-900">
+                                  <h4 className="text-sm sm:text-base font-bold font-serif uppercase tracking-wide leading-tight">
+                                    {selectedNode.title}
+                                  </h4>
+                                  <p className="text-[10px] sm:text-xs text-slate-850 leading-snug mt-1 font-medium font-serif max-h-[80px] overflow-y-auto">
+                                    {selectedNode.description}
+                                  </p>
+                                  <div className="mt-2 flex items-center justify-center gap-4 text-[10px] sm:text-xs font-mono font-bold text-slate-950">
+                                    <span className="bg-amber-100 border border-amber-900/20 px-2 py-0.5 rounded">XP: {selectedNode.estimatedXp}</span>
+                                    <span className="bg-amber-100 border border-amber-900/20 px-2 py-0.5 rounded">Pass: {selectedNode.type === "final" ? "70%" : "50%"}</span>
+                                  </div>
+                                </div>
+
+                                {/* Bottom Scroll: Start Controls */}
+                                <div className="absolute top-[67%] left-[43%] w-[33%] h-[28%] flex flex-col items-center justify-center p-4 select-text text-slate-900">
+                                  <button
+                                    onClick={handleStartTest}
+                                    className="px-6 py-2.5 bg-gradient-to-r from-purple-800 to-indigo-900 text-white font-bold text-xs rounded-xl shadow-lg hover:scale-105 active:scale-95 transition-all uppercase tracking-wider cursor-pointer font-sans"
+                                  >
+                                    Start Test
+                                  </button>
+                                </div>
+                              </>
+                            );
+                          }
+
+                          // CASE 2: Loading Dynamic Questions
+                          if (isTestQuestionsLoading) {
+                            return (
+                              <div className="absolute top-[10%] left-[26%] w-[48%] h-[25%] flex flex-col justify-center items-center text-slate-900 font-serif p-4">
+                                <div className="w-6 h-6 border-2 border-purple-900 border-t-transparent rounded-full animate-spin mb-2" />
+                                <span className="text-[11px] font-bold tracking-wider animate-pulse">GENERATING ASSESSMENT SYNAPSE...</span>
+                              </div>
+                            );
+                          }
+
+                          // CASE 3: Test Finished (Results Screen)
+                          if (testFinished) {
+                            return (
+                              <>
+                                {/* Top Scroll: Score & Status */}
+                                <div className="absolute top-[10%] left-[26%] w-[48%] h-[25%] flex flex-col justify-center px-6 text-center overflow-y-auto scrollbar-thin text-slate-900">
+                                  <h4 className="text-sm sm:text-base font-bold font-serif uppercase tracking-wide leading-tight">
+                                    {testPassed ? "🎉 assessment passed" : "❌ alignment failed"}
+                                  </h4>
+                                  <div className="text-xl sm:text-2xl font-black font-mono text-purple-950 mt-1">
+                                    {testScore}%
+                                  </div>
+                                  <p className="text-[10px] sm:text-xs text-slate-800 font-serif leading-snug mt-1 max-h-[60px] overflow-y-auto">
+                                    {testPassed 
+                                      ? `Congratulations! You've verified your knowledge parameters in ${activeCourse}. XP rewards successfully synced.`
+                                      : `Calibration error. Required passing threshold: ${selectedNode.type === "final" ? "70%" : "50%"}. Brush up your skills and try again.`
+                                    }
+                                  </p>
+                                </div>
+
+                                {/* Bottom Scroll: Finish Controls */}
+                                <div className="absolute top-[67%] left-[43%] w-[33%] h-[28%] flex flex-col gap-2 items-center justify-center p-3 select-text text-slate-900">
+                                  {testPassed ? (
+                                    <button
+                                      onClick={() => {
+                                        handleClosePanel();
+                                      }}
+                                      className="w-full py-2 bg-emerald-700 text-white font-bold text-[10px] sm:text-xs rounded-lg hover:bg-emerald-800 transition-all uppercase tracking-wider cursor-pointer font-mono"
+                                    >
+                                      Claim Rewards
+                                    </button>
+                                  ) : (
+                                    <>
+                                      <button
+                                        onClick={() => {
+                                          setLives(5); // reset hearts
+                                          handleStartTest();
+                                        }}
+                                        className="w-full py-2 bg-purple-800 text-white font-bold text-[10px] sm:text-xs rounded-lg hover:bg-purple-900 transition-all uppercase tracking-wider cursor-pointer font-mono"
+                                      >
+                                        Try Again
+                                      </button>
+                                      <button
+                                        onClick={handleClosePanel}
+                                        className="w-full py-1.5 bg-slate-200 border border-slate-350 text-slate-800 text-[10px] sm:text-xs font-bold rounded-lg hover:bg-slate-300 transition-colors cursor-pointer font-mono"
+                                      >
+                                        Exit
+                                      </button>
+                                    </>
+                                  )}
+                                </div>
+                              </>
+                            );
+                          }
+
+                          // CASE 4: Active Question Display
+                          if (questions.length === 0) {
+                            return (
+                              <div className="absolute top-[10%] left-[26%] w-[48%] h-[25%] flex flex-col justify-center items-center text-slate-900 font-serif p-4">
+                                <span className="text-[11px] font-bold">No questions found. Exit and retry.</span>
+                              </div>
+                            );
+                          }
+
+                          const currentQuestion = questions[currentQuestionIdx];
+                          const selectedAnswer = testAnswers[currentQuestionIdx];
+
+                          return (
+                            <>
+                              {/* Top Scroll: Question Prompt & Progress/HUD */}
+                              <div className="absolute top-[10%] left-[26%] w-[48%] h-[25%] flex flex-col justify-center px-6 text-center select-text text-slate-900">
+                                <div className="flex items-center justify-between text-[9px] font-mono font-bold text-slate-600 border-b border-slate-300/35 pb-1 mb-1">
+                                  <span>Q: {currentQuestionIdx + 1}/{questions.length}</span>
+                                  <span className="text-red-650">❤️ {lives}</span>
+                                  {selectedNode.type === "final" && (
+                                    <span className="text-purple-800">⏱️ {Math.floor(timerSeconds / 60)}:{String(timerSeconds % 60).padStart(2, '0')}</span>
+                                  )}
+                                </div>
+                                <p className="text-[10px] sm:text-xs text-slate-950 font-serif font-semibold leading-snug max-h-[85px] overflow-y-auto text-center scrollbar-thin">
+                                  {currentQuestion.q}
+                                </p>
+                              </div>
+
+                              {/* Bottom Scroll: Answering options */}
+                              <div className="absolute top-[67%] left-[43%] w-[33%] h-[28%] flex flex-col p-3 overflow-y-auto scrollbar-thin select-text text-slate-900">
+                                <div className="space-y-1.5 flex-1 overflow-y-auto scrollbar-thin pr-1">
+                                  {currentQuestion.o.map((opt, idx) => {
+                                    const isSelected = selectedAnswer === opt;
+                                    return (
+                                      <button
+                                        key={idx}
+                                        onClick={() => handleSelectTestOption(opt)}
+                                        className={`w-full p-1.5 rounded text-left text-[9px] font-mono border transition-all flex items-center gap-1.5 cursor-pointer ${
+                                          isSelected
+                                            ? "bg-purple-950 border-purple-900 text-white font-bold"
+                                            : "bg-white/60 border-purple-900/20 text-slate-800 hover:bg-white/80"
+                                        }`}
+                                      >
+                                        <span className="text-[8px] bg-purple-200/80 px-1 border border-purple-900/20 rounded font-bold text-purple-950">
+                                          {String.fromCharCode(65 + idx)}
+                                        </span>
+                                        <span className="leading-tight truncate" title={opt}>{opt}</span>
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                                
+                                <div className="pt-2">
+                                  <button
+                                    disabled={!selectedAnswer}
+                                    onClick={handleNextQuestion}
+                                    className="w-full py-1.5 bg-gradient-to-r from-purple-800 to-indigo-900 text-white font-bold text-[9px] rounded transition-all uppercase tracking-wider shadow cursor-pointer font-mono disabled:opacity-40 disabled:cursor-not-allowed"
+                                  >
+                                    {currentQuestionIdx < questions.length - 1 ? "Next Question" : "Submit Assessment"}
+                                  </button>
+                                </div>
+                              </div>
+                            </>
+                          );
+                        })()}
+                        
                       </div>
                     </div>
-                  </>
+                  </div>
                 )}
               </motion.div>
             ) : (
