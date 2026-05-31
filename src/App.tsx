@@ -43,6 +43,8 @@ export default function App() {
   const [streak, setStreak] = useState(12);
   const [level, setLevel] = useState(3);
   const [completedNodes, setCompletedNodes] = useState<string[]>(["fe_html"]);
+  const [completedReadings, setCompletedReadings] = useState<string[]>([]);
+  const [completedStories, setCompletedStories] = useState<string[]>([]);
 
   // Multi-filing playground state
   const playgroundTemplates: SandboxProject[] = [
@@ -251,6 +253,27 @@ Skills: HTML, CSS, JavaScript, Basic Git.`);
     if (finishedCount < currentActiveNodes.length) {
       const nextNodeToComplete = currentActiveNodes[finishedCount];
       setCompletedNodes(prev => [...prev, nextNodeToComplete]);
+    }
+  };
+
+  const handleModeComplete = (nodeId: string, mode: "reading" | "story", xpGained: number) => {
+    setXp(prev => prev + xpGained);
+    setStreak(prev => prev + 1);
+    
+    if (mode === "reading") {
+      setCompletedReadings(prev => {
+        if (prev.includes(nodeId)) return prev;
+        return [...prev, nodeId];
+      });
+      setCompletedStories(prev => {
+        if (prev.includes(nodeId)) return prev;
+        return [...prev, nodeId];
+      });
+    } else if (mode === "story") {
+      setCompletedStories(prev => {
+        if (prev.includes(nodeId)) return prev;
+        return [...prev, nodeId];
+      });
     }
   };
 
@@ -651,7 +674,18 @@ Skills: HTML, CSS, JavaScript, Basic Git.`);
                     </div>
                   )}
 
-                  <Roadmap onNodeComplete={handleNodeComplete} completedNodes={completedNodes} />
+                  <Roadmap 
+                    onNodeComplete={handleNodeComplete} 
+                    completedNodes={completedNodes}
+                    completedReadings={completedReadings}
+                    completedStories={completedStories}
+                    onModeComplete={handleModeComplete}
+                    xp={xp}
+                    level={level}
+                    streak={streak}
+                    profileName={profile?.name}
+                    activeInterest={profile?.interests?.[0] || "Web Development"}
+                  />
                 </div>
 
                 {/* Interactive Dynamic Mission bar matching layout */}
